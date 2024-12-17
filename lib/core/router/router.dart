@@ -3,7 +3,7 @@ import 'package:leenas_mushrooms/main.dart';
 import 'package:leenas_mushrooms/view/login_page.dart';
 
 final router = GoRouter(
-    navigatorKey: MyApp.navigatorKey,
+    // navigatorKey: MyApp.navigatorKey,
     initialLocation: LoginPage.routePath,
     routes: [
       GoRoute(
