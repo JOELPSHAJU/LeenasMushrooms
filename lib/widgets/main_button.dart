@@ -18,9 +18,13 @@ class MainButton extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+        style: ButtonStyle(
+          backgroundColor:
+              WidgetStateProperty.all<Color>(AppColors.secondaryColor),
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
           ),
         ),
         onPressed: onPressed,

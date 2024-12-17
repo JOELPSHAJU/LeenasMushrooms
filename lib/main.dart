@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:leenas_mushrooms/widgets/main_button.dart';
+import 'package:leenas_mushrooms/core/router/router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,35 +11,16 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  static final navigatorKey = GlobalKey<NavigatorState>();
+  static final scaffoldMessngerKey = GlobalKey<ScaffoldMessengerState>();
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Leenas Mushrooms',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const TextClass(),
-    );
-  }
-}
-
-class TextClass extends StatelessWidget {
-  const TextClass({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: MainButton(
-            buttonText: '',
-          ),
-        ),
-      ),
+      scaffoldMessengerKey: scaffoldMessngerKey,
+      routerConfig: router,
     );
   }
 }
