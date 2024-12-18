@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TExtField extends StatelessWidget {
+class CommonTextField extends StatelessWidget {
   final String hintText;
   final IconData prefixIcon;
   final IconButton? suffixIcon; // Optional suffix icon
@@ -12,7 +12,7 @@ class TExtField extends StatelessWidget {
 
   final String? textTop;
 
-  const TExtField({
+  const CommonTextField({
     super.key,
     required this.hintText,
     required this.prefixIcon,
@@ -47,22 +47,22 @@ class TExtField extends StatelessWidget {
               // fillColor: Colors.white,
               prefixIcon: Icon(
                 prefixIcon,
-                color: Colors.grey,
+                color: Colors.grey.shade400,
               ),
               suffixIcon: suffixIcon,
               hintText: hintText,
-              hintStyle: const TextStyle(color: Colors.grey),
+              hintStyle: TextStyle(color: Colors.grey.shade400),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide: const BorderSide(color: Colors.grey),
+                borderSide: BorderSide(color: Colors.grey.shade400),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide: const BorderSide(color: Colors.grey),
+                borderSide: BorderSide(color: Colors.grey.shade400),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide: const BorderSide(color: Colors.grey),
+                borderSide: BorderSide(color: Colors.grey.shade400),
               ),
             ),
           ),

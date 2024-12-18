@@ -10,9 +10,10 @@ class MainButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Container(
-      width: double.infinity,
-      height: 60, // Responsive height
+      width: size.width,
+      height: 55, // Responsive height
       decoration: const BoxDecoration(
         color: AppColors.secondaryColor,
         borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -32,8 +33,8 @@ class MainButton extends StatelessWidget {
           buttonText,
           style: const TextStyle(
             color: Colors.white,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ),
