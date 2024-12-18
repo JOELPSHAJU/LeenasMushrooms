@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:leenas_mushrooms/core/router/router.dart';
+import 'package:leenas_mushrooms/widgets/bottom_nav_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,10 +18,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    // return MaterialApp.router(
+    //   debugShowCheckedModeBanner: false,
+    //   scaffoldMessengerKey: scaffoldMessngerKey,
+    //   routerConfig: router,
+    // );
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       scaffoldMessengerKey: scaffoldMessngerKey,
-      routerConfig: router,
+      home: const BottomNav(),
     );
   }
 }

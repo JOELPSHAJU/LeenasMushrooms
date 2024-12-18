@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:leenas_mushrooms/dashboard/call_details_page.dart';
+import 'package:leenas_mushrooms/dashboard/expense_page.dart';
+import 'package:leenas_mushrooms/dashboard/home_page.dart';
+import 'package:leenas_mushrooms/dashboard/order_details_page.dart';
 import 'package:leenas_mushrooms/widgets/drawer_widget.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
@@ -73,30 +77,35 @@ class CustomBottomNavigationBar extends StatelessWidget {
   }
 }
 
-class BottomNavExample extends StatefulWidget {
-  const BottomNavExample({super.key});
+class BottomNav extends StatefulWidget {
+  const BottomNav({super.key});
 
   @override
-  State<BottomNavExample> createState() => _BottomNavExampleState();
+  State<BottomNav> createState() => _BottomNavState();
 }
 
-class _BottomNavExampleState extends State<BottomNavExample> {
+class _BottomNavState extends State<BottomNav> {
   int _selectedIndex = 0;
-  final List<String> _titles = [
-    "HomePage",
-    "Call Details",
-    "Order Details",
-    "INC/EXP"
+
+  final List<Widget> pages = [
+    const HomePage(),
+    const CallDetailsPage(),
+    const OrderDetailsPage(),
+    const ExpensePage(),
   ];
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    if (index < pages.length) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    assert(_selectedIndex >= 0 && _selectedIndex < pages.length,
+        "Invalid index for selected page.");
     return Scaffold(
       drawer: const Drawer(
         child: DrawerWidget(),
@@ -109,11 +118,9 @@ class _BottomNavExampleState extends State<BottomNavExample> {
           height: 50,
         ),
       ),
-      body: Center(
-        child: Text(
-          _titles[_selectedIndex],
-          style: const TextStyle(fontSize: 24),
-        ),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: pages,
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
         selectedIndex: _selectedIndex,
