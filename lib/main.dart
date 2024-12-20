@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:leenas_mushrooms/core/router/router.dart';
-import 'package:leenas_mushrooms/view/login_page.dart';
+import 'package:leenas_mushrooms/view/login_page/login_page.dart';
 import 'package:leenas_mushrooms/widgets/bottom_nav_widget.dart';
 
 void main() async {

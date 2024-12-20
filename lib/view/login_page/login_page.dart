@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:leenas_mushrooms/view/mobile_login_page.dart';
+import 'package:leenas_mushrooms/view/login_page/mobile_login_page.dart';
 
 class LoginPage extends StatelessWidget {
   static const routePath = '/login';

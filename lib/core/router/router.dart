@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:leenas_mushrooms/main.dart';
-import 'package:leenas_mushrooms/view/login_page.dart';
+import 'package:leenas_mushrooms/view/login_page/login_page.dart';
 
 final router = GoRouter(
     navigatorKey: MyApp.navigatorKey,
