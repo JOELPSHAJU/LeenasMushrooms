@@ -1,6 +1,6 @@
 // Reusable Login Button
 import 'package:flutter/material.dart';
-import 'package:leenas_mushrooms/core/color.dart';
+import 'package:leenas_mushrooms/core/constants/color.dart';
 
 class MainButton extends StatelessWidget {
   final String buttonText;

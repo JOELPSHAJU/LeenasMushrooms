@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:leenas_mushrooms/core/color.dart';
 import 'package:leenas_mushrooms/core/common_widgets/textformfield.dart';
-import 'package:leenas_mushrooms/core/font_style.dart';
-import 'package:leenas_mushrooms/core/image_path_provider.dart';
+import 'package:leenas_mushrooms/core/constants/color.dart';
+import 'package:leenas_mushrooms/core/constants/font_style.dart';
+import 'package:leenas_mushrooms/core/constants/image_path_provider.dart';
+import 'package:leenas_mushrooms/core/constants/text_constants.dart';
 import 'package:leenas_mushrooms/core/utils/common_util.dart';
 import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
-import 'package:leenas_mushrooms/dashboard/home_page.dart';
-import 'package:leenas_mushrooms/widgets/main_button.dart';
+import 'package:leenas_mushrooms/view/screens/home_screen/dashboard/home_page.dart';
+import 'package:leenas_mushrooms/view/screens/home_screen/widgets/main_button.dart';
 
 class MobileLoginPage extends StatelessWidget {
   const MobileLoginPage({super.key});
@@ -45,7 +46,7 @@ class MobileLoginPage extends StatelessWidget {
                         height: 10.h,
                       ),
                       Text(
-                        'Welcome',
+                        AppText.welcome,
                         style: AppFonts.getAppFont(
                             context: context,
                             weight: FontWeight.w500,
@@ -59,7 +60,7 @@ class MobileLoginPage extends StatelessWidget {
                           maxlines: 1,
                           enabled: true,
                           fillColor: AppColors.white,
-                          hintText: 'Enter email',
+                          hintText: AppText.enterEmail,
                           prefixwidget: Icon(
                             Icons.person,
                             size: 20.w,
@@ -72,7 +73,7 @@ class MobileLoginPage extends StatelessWidget {
                           maxlines: 1,
                           enabled: true,
                           fillColor: AppColors.white,
-                          hintText: 'Enter password',
+                          hintText: AppText.enterPassword,
                           prefixwidget: Icon(
                             Icons.security,
                             size: 20.w,

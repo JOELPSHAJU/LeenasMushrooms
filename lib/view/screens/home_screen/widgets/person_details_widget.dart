@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:leenas_mushrooms/core/color.dart';
+import 'package:leenas_mushrooms/core/constants/color.dart';
 
 class PersonDetailsWidget extends StatelessWidget {
   final String name;

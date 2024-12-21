@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:leenas_mushrooms/core/color.dart';
-import 'package:leenas_mushrooms/core/font_style.dart';
+import 'package:leenas_mushrooms/core/constants/color.dart';
+import 'package:leenas_mushrooms/core/constants/font_style.dart';
 
 // ignore: must_be_immutable
 class CommonTextformField extends StatefulWidget {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:leenas_mushrooms/dashboard/call_details_page.dart';
-import 'package:leenas_mushrooms/dashboard/expense_page.dart';
-import 'package:leenas_mushrooms/dashboard/home_page.dart';
-import 'package:leenas_mushrooms/dashboard/order_details_page.dart';
-import 'package:leenas_mushrooms/widgets/drawer_widget.dart';
+import 'package:leenas_mushrooms/view/screens/home_screen/dashboard/call_details_page.dart';
+import 'package:leenas_mushrooms/view/screens/home_screen/dashboard/expense_page.dart';
+import 'package:leenas_mushrooms/view/screens/home_screen/dashboard/home_page.dart';
+import 'package:leenas_mushrooms/view/screens/home_screen/dashboard/order_details_page.dart';
+import 'package:leenas_mushrooms/view/screens/home_screen/widgets/drawer_widget.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final int selectedIndex;
