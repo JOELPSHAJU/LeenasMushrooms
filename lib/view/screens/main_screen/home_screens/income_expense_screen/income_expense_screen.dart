@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ExpensePage extends StatelessWidget {
-  const ExpensePage({super.key});
+class IncomeExpenseScreen extends StatelessWidget {
+  const IncomeExpenseScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text("Expense Page"),
+        child: Text('INCOME EXPENSE SCREEN'),
       ),
     );
   }

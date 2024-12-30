@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:leenas_mushrooms/core/constants/size.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class DailyDataScreen extends StatelessWidget {
+  const DailyDataScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: BarChartExample(),
+    return Scaffold(
+      appBar: AppBar(),
+      body: Column(
+        children: [
+          h30,
+          h50,
+          const BarChartExample(),
+        ],
       ),
     );
   }

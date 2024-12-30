@@ -3,11 +3,12 @@ import 'package:leenas_mushrooms/core/common_widgets/textformfield.dart';
 import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/constants/font_style.dart';
 import 'package:leenas_mushrooms/core/constants/image_path_provider.dart';
+import 'package:leenas_mushrooms/core/constants/size.dart';
 import 'package:leenas_mushrooms/core/constants/text_constants.dart';
 import 'package:leenas_mushrooms/core/utils/common_util.dart';
 import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
-import 'package:leenas_mushrooms/view/screens/home_screen/dashboard/home_page.dart';
-import 'package:leenas_mushrooms/view/screens/home_screen/widgets/main_button.dart';
+import 'package:leenas_mushrooms/core/common_widgets/main_button.dart';
+import 'package:leenas_mushrooms/view/screens/main_screen/main_screen.dart';
 
 class MobileLoginPage extends StatelessWidget {
   const MobileLoginPage({super.key});
@@ -31,7 +32,7 @@ class MobileLoginPage extends StatelessWidget {
               bottom: 0,
               child: Container(
                 width: size.width,
-                height: size.height * .36.w,
+                height: size.height * .4,
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius:
@@ -42,9 +43,7 @@ class MobileLoginPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        height: 10.h,
-                      ),
+                      h10,
                       Text(
                         AppText.welcome,
                         style: AppFonts.getAppFont(
@@ -53,9 +52,7 @@ class MobileLoginPage extends StatelessWidget {
                             size: 16.sp,
                             color: Colors.grey.shade500),
                       ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
+                      h20,
                       CommonTextformField(
                           maxlines: 1,
                           enabled: true,
@@ -66,9 +63,7 @@ class MobileLoginPage extends StatelessWidget {
                             size: 20.w,
                           ),
                           controller: userNameController),
-                      SizedBox(
-                        height: 20.h,
-                      ),
+                      h20,
                       CommonTextformField(
                           maxlines: 1,
                           enabled: true,
@@ -79,15 +74,13 @@ class MobileLoginPage extends StatelessWidget {
                             size: 20.w,
                           ),
                           controller: passWordController),
-                      SizedBox(
-                        height: 20.h,
-                      ),
+                      h20,
                       GestureDetector(
                           onTap: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (c) => const HomePage()));
+                                    builder: (c) =>  MainScreen()));
                           },
                           child: const MainButton(buttonText: 'Login'))
                     ],

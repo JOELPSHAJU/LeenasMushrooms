@@ -1,36 +1,34 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
 
-const h10 = SizedBox(
-  height: 10,
+final h10 = SizedBox(
+  height: 10.h,
 );
-const h20 = SizedBox(
-  height: 20,
+final h20 = SizedBox(
+  height: 20.h,
 );
-const h30 = SizedBox(
-  height: 30,
+final h30 = SizedBox(
+  height: 30.h,
 );
-const h40 = SizedBox(
-  height: 40,
+final h40 = SizedBox(
+  height: 40.h,
 );
-const h50 = SizedBox(
-  height: 50,
+final h50 = SizedBox(
+  height: 50.h,
 );
 
-
-const w10 = SizedBox(
-  width: 10,
+final w10 = SizedBox(
+  width: 10.w,
 );
-const w20 = SizedBox(
-  width: 20,
+final w20 = SizedBox(
+  width: 20.w,
 );
-const w30 = SizedBox(
-  width: 30,
+final w30 = SizedBox(
+  width: 30.w,
 );
-const w40 = SizedBox(
-  width: 40,
+final w40 = SizedBox(
+  width: 40.w,
 );
-const w50 = SizedBox(
-  width: 50,
+final w50 = SizedBox(
+  width: 50.w,
 );
