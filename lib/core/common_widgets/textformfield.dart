@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/constants/font_style.dart';
+import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
+import 'package:leenas_mushrooms/view/screens/main_screen/widgets/heading_input_fields.dart';
 
 // ignore: must_be_immutable
 class CommonTextformField extends StatefulWidget {
@@ -16,6 +18,7 @@ class CommonTextformField extends StatefulWidget {
     this.sufixOntap,
     this.prefixOntap,
     this.suffixWidget,
+    required this.fieldName,
     this.prefixwidget,
     required this.controller,
     this.fillColor,
@@ -29,6 +32,7 @@ class CommonTextformField extends StatefulWidget {
   final String? keytext;
   final String? dependentData;
   final String? prefixText;
+  final String fieldName;
   final Widget? prefixwidget;
   final VoidCallback? sufixOntap;
   final TextEditingController controller;
@@ -47,74 +51,96 @@ class CommonTextformField extends StatefulWidget {
 class _CommonTextformFieldState extends State<CommonTextformField> {
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      initialValue: widget.dependentData,
-      enabled: widget.enabled,
-      style: AppFonts.getAppFont(
-        color: AppColors.black,
-        context: context,
-        size: 14,
-        weight: FontWeight.w400,
-      ),
-      maxLines: widget.maxlines,
-      controller: widget.controller,
-      decoration: InputDecoration(
-        fillColor: widget.enabled ? widget.fillColor : AppColors.white,
-        filled: true,
-        // Corrected prefixIcon GestureDetector
-        prefixIcon: widget.prefixwidget != null
-            ? GestureDetector(
-                onTap: widget.prefixOntap, // Correct onTap call
-                child: Padding(
-                    padding: const EdgeInsetsDirectional.only(
-                        start: 5, top: 13.5, bottom: 13.5),
-                    child: widget.prefixwidget),
-              )
-            : null,
-        // Corrected suffixIcon GestureDetector
-        suffixIcon: widget.sufixText != null
-            ? GestureDetector(
-                onTap: widget.sufixOntap, // Correct onTap call
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.only(
-                    end: 12,
-                    top: 13,
-                  ),
-                  child: Text(
-                    widget.sufixText.toString(),
-                    style: AppFonts.getAppFont(
-                      color: AppColors.black,
-                      context: context,
-                      size: 14,
-                      weight: FontWeight.w500,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      child: Column(
+        children: [
+          widget.fieldName.isNotEmpty
+              ? Column(
+                  children: [
+                    SizedBox(
+                      height: 20.h,
                     ),
-                  ),
+                    HeadingRequestPage(title: widget.fieldName),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                  ],
+                )
+              : SizedBox(
+                  height: 20.h,
                 ),
-              )
-            : widget.suffixWidget,
-        hintText: widget.hintText,
-        disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: Colors.black.withOpacity(.50)),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: Colors.black.withOpacity(.50)),
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: Colors.black.withOpacity(.50)),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: AppColors.black),
-        ),
-        hintStyle: AppFonts.getAppFont(
-          color: Colors.black.withOpacity(.50),
-          context: context,
-          size: 14,
-          weight: FontWeight.w400,
-        ),
+          TextFormField(
+            initialValue: widget.dependentData,
+            enabled: widget.enabled,
+            style: AppFonts.getAppFont(
+              color: AppColors.black,
+              context: context,
+              size: 14,
+              weight: FontWeight.w400,
+            ),
+            maxLines: widget.maxlines,
+            controller: widget.controller,
+            decoration: InputDecoration(
+              fillColor: widget.enabled ? widget.fillColor : AppColors.white,
+              filled: true,
+              // Corrected prefixIcon GestureDetector
+              prefixIcon: widget.prefixwidget != null
+                  ? GestureDetector(
+                      onTap: widget.prefixOntap, // Correct onTap call
+                      child: Padding(
+                          padding: const EdgeInsetsDirectional.only(
+                              start: 5, top: 13.5, bottom: 13.5),
+                          child: widget.prefixwidget),
+                    )
+                  : null,
+              // Corrected suffixIcon GestureDetector
+              suffixIcon: widget.sufixText != null
+                  ? GestureDetector(
+                      onTap: widget.sufixOntap, // Correct onTap call
+                      child: Padding(
+                        padding: const EdgeInsetsDirectional.only(
+                          end: 12,
+                          top: 13,
+                        ),
+                        child: Text(
+                          widget.sufixText.toString(),
+                          style: AppFonts.getAppFont(
+                            color: AppColors.black,
+                            context: context,
+                            size: 14,
+                            weight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    )
+                  : widget.suffixWidget,
+              hintText: widget.hintText,
+              disabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: Colors.black.withOpacity(.30)),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: Colors.black.withOpacity(.30)),
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: Colors.black.withOpacity(.30)),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: const BorderSide(color: AppColors.black),
+              ),
+              hintStyle: AppFonts.getAppFont(
+                color: Colors.black.withOpacity(.30),
+                context: context,
+                size: 14,
+                weight: FontWeight.w400,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

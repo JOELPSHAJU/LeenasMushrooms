@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:leenas_mushrooms/core/constants/color.dart';
+import 'package:leenas_mushrooms/core/constants/image_path_provider.dart';
+import 'package:leenas_mushrooms/core/utils/common_util.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/home_screens/call_details_screen/call_details_screen.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/home_screens/daily_data_screen/daily_data_screen.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/home_screens/income_expense_screen/income_expense_screen.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/home_screens/order_details_screen/order_details_screen.dart';
+import 'package:leenas_mushrooms/view/screens/main_screen/widgets/drawer_widget.dart';
 
 class MainScreen extends StatelessWidget {
   MainScreen({super.key});
@@ -22,9 +25,16 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // drawer: UserDrawer(),
+        appBar: AppBar(
+          toolbarHeight: 70,
+          iconTheme: const IconThemeData(color: AppColors.black),
+          centerTitle: true,
+          title: loadAssetPic(ImagePathProvider.logoletters, height: 40),
+          backgroundColor: AppColors.white,
+          surfaceTintColor: AppColors.white,
+        ),
+        drawer: const UserDrawer(),
         extendBody: true,
-
         body: ValueListenableBuilder<int>(
           valueListenable: _currentIndexNotifier,
           builder: (context, currentIndex, child) {
@@ -34,9 +44,10 @@ class MainScreen extends StatelessWidget {
         backgroundColor: const Color.fromARGB(0, 255, 255, 255),
         bottomNavigationBar: Container(
           decoration: const BoxDecoration(
-            color: Colors.white,
+            color: AppColors.white,
             border: Border.symmetric(
-              horizontal: BorderSide(width: 1, color: Colors.grey),
+              horizontal: BorderSide(
+                  width: 1, color: Color.fromARGB(255, 202, 202, 202)),
             ),
           ),
           child: Padding(
@@ -45,7 +56,7 @@ class MainScreen extends StatelessWidget {
               gap: 8,
               color: Colors.black,
               tabBackgroundColor: AppColors.primaryColor,
-              activeColor: Colors.white,
+              activeColor: AppColors.white,
               padding: const EdgeInsets.all(10),
               onTabChange: (value) {
                 _currentIndexNotifier.value = value;
