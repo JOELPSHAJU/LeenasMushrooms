@@ -6,7 +6,7 @@ import 'package:leenas_mushrooms/core/utils/common_util.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/home_screens/call_details_screen/call_details_screen.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/home_screens/daily_data_screen/daily_data_screen.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/home_screens/income_expense_screen/income_expense_screen.dart';
-import 'package:leenas_mushrooms/view/screens/main_screen/home_screens/order_details_screen/order_details_screen.dart';
+import 'package:leenas_mushrooms/view/screens/main_screen/home_screens/order_details_input_screen/order_details_input_screen.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/widgets/drawer_widget.dart';
 
 class MainScreen extends StatelessWidget {
@@ -17,7 +17,7 @@ class MainScreen extends StatelessWidget {
   final List<Widget> pages = [
     const DailyDataScreen(),
     const CallDetailsScreen(),
-    const OrderDetailsScreen(),
+    const OrderDetailsInputScreen(),
     const IncomeExpenseScreen()
   ];
 
