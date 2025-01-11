@@ -7,6 +7,7 @@ import 'package:leenas_mushrooms/view/screens/call_details_page/call_details_pag
 import 'package:leenas_mushrooms/view/screens/expense_detail_page/expense_detail_page.dart';
 import 'package:leenas_mushrooms/view/screens/income_detail_page/income_detail_page.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/home_screens/order_details_screen/order_details_screen.dart';
+import 'package:leenas_mushrooms/view/screens/show_harvest_details/mushroom_harvest_details.dart';
 
 class UserDrawer extends StatefulWidget {
   const UserDrawer({super.key});
@@ -99,6 +100,21 @@ class _UserDrawerState extends State<UserDrawer> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => const ExpanseDetailPage()),
+              );
+            },
+          ),
+          const Divider(),
+          ListTile(
+            contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+            title: const Text(
+              'MushroomHarvestDetails',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const MushroomHarvestDetails()),
               );
             },
           ),
