@@ -6,6 +6,7 @@ import 'package:leenas_mushrooms/core/constants/font_style.dart';
 import 'package:leenas_mushrooms/core/constants/image_path_provider.dart';
 import 'package:leenas_mushrooms/core/constants/size.dart';
 import 'package:leenas_mushrooms/core/utils/common_util.dart';
+import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
 
 class OrderDetailsDialog extends StatelessWidget {
   final Map<String, String> order;
@@ -195,7 +196,37 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       ),
       body: Column(
         children: [
-          h30,
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 25.r,
+                  backgroundColor: AppColors.white,
+                  child: Center(
+                    child: Icon(
+                      Icons.arrow_back_ios,
+                      size: 20.h,
+                      color: AppColors.black,
+                    ),
+                  ),
+                ),
+                w10,
+                Text(
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  'Order Details ',
+                  style: AppFonts.getAppFont(
+                      context: context,
+                      color: AppColors.black,
+                      weight: FontWeight.w500,
+                      size: 21.sp),
+                ),
+              ],
+            ),
+          ),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

@@ -3,8 +3,8 @@ import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/constants/image_path_provider.dart';
 import 'package:leenas_mushrooms/core/utils/common_util.dart';
 import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
+import 'package:leenas_mushrooms/view/call_details_page/call_details_page.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/home_screens/order_details_screen/order_details_screen.dart';
-import 'package:leenas_mushrooms/view/screens/oder_details_screen/order_details_screen.dart';
 
 class UserDrawer extends StatefulWidget {
   const UserDrawer({super.key});
@@ -45,7 +45,15 @@ class _UserDrawerState extends State<UserDrawer> {
               'Call Details',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            onTap: () {},
+            onTap: () {
+              // CallDetailsPage
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const CallDetailsPage()),
+              );
+            },
           ),
           const Divider(),
           ListTile(
