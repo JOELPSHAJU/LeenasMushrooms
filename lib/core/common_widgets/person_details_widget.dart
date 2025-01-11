@@ -9,6 +9,7 @@ class PersonDetailsWidget extends StatelessWidget {
   final String subHedTwo;
   final String subHedoneData;
   final bool isviewed;
+  final bool isProfile; // New property to determine profile context
   final String date;
   final String subHedone;
   final String subHedTwoData;
@@ -28,6 +29,7 @@ class PersonDetailsWidget extends StatelessWidget {
     required this.subHedTwoData,
     required this.subHedoneData,
     required this.isviewed,
+    this.isProfile = false, // Default to false
     this.viewOnPressed,
     this.editOnPressed,
     this.deleteOnPressed,
@@ -47,7 +49,7 @@ class PersonDetailsWidget extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(16)),
         ),
         width: double.infinity,
-        height: 248,
+        height: isProfile ? 200 : 248,
         child: Column(
           children: [
             // Date Section
@@ -164,62 +166,63 @@ class PersonDetailsWidget extends StatelessWidget {
                 ),
               ),
             ),
-            const Divider(thickness: 1, color: Colors.white),
+            if (!isProfile) const Divider(thickness: 1, color: Colors.white),
 
             // Action Buttons Section
-            isviewed
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      TextButton.icon(
-                        onPressed: viewOnPressed,
-                        icon: const Icon(
-                          Icons.visibility,
-                          color: AppColors.green100,
-                        ),
-                        label: const Text(
-                          "VIEW DETAILS",
-                          style: TextStyle(
-                            fontSize: 16,
+            if (!isProfile)
+              isviewed
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        TextButton.icon(
+                          onPressed: viewOnPressed,
+                          icon: const Icon(
+                            Icons.visibility,
                             color: AppColors.green100,
                           ),
-                        ),
-                      ),
-                    ],
-                  )
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      TextButton.icon(
-                        onPressed: editOnPressed,
-                        icon: const Icon(
-                          Icons.edit,
-                          color: AppColors.green100,
-                        ),
-                        label: const Text(
-                          "EDIT DETAILS",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: AppColors.green100,
+                          label: const Text(
+                            "VIEW DETAILS",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: AppColors.green100,
+                            ),
                           ),
                         ),
-                      ),
-                      TextButton.icon(
-                        onPressed: deleteOnPressed,
-                        icon: const Icon(
-                          Icons.delete,
-                          color: Colors.red,
+                      ],
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        TextButton.icon(
+                          onPressed: editOnPressed,
+                          icon: const Icon(
+                            Icons.edit,
+                            color: AppColors.green100,
+                          ),
+                          label: const Text(
+                            "EDIT DETAILS",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: AppColors.green100,
+                            ),
+                          ),
                         ),
-                        label: const Text(
-                          "DELETE DETAILS",
-                          style: TextStyle(
-                            fontSize: 16,
+                        TextButton.icon(
+                          onPressed: deleteOnPressed,
+                          icon: const Icon(
+                            Icons.delete,
                             color: Colors.red,
                           ),
+                          label: const Text(
+                            "DELETE DETAILS",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.red,
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
           ],
         ),
       ),
