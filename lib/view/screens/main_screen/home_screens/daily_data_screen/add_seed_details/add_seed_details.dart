@@ -11,19 +11,18 @@ import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/widgets/heading_input_fields.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/widgets/inputfield_data_model.dart';
 
-class AddMushroomDetailsScreen extends StatefulWidget {
-  const AddMushroomDetailsScreen({super.key});
+class AddSeedDetailsScreen extends StatefulWidget {
+  const AddSeedDetailsScreen({super.key});
 
   @override
-  State<AddMushroomDetailsScreen> createState() =>
-      _AddMushroomDetailsScreenState();
+  State<AddSeedDetailsScreen> createState() => _AddSeedDetailsScreenState();
 }
 
 final quantityController = TextEditingController();
 final damageController = TextEditingController();
 final remarksController = TextEditingController();
 
-class _AddMushroomDetailsScreenState extends State<AddMushroomDetailsScreen> {
+class _AddSeedDetailsScreenState extends State<AddSeedDetailsScreen> {
   String selectedDate = DateFormat('dd MMMM yyyy').format(DateTime.now());
   String selectedHarvestTime = 'Morning';
 
@@ -35,15 +34,15 @@ class _AddMushroomDetailsScreenState extends State<AddMushroomDetailsScreen> {
         prefixIcon: null,
         controller: quantityController,
         fieldName: 'Quantity',
-        hintText: 'Enter quantity'),
+        hintText: 'Enter quantity(Kg)'),
     InputfieldsDataModel(
         maxlines: 1,
         enabled: true,
         fillColor: AppColors.white,
         prefixIcon: null,
         controller: damageController,
-        fieldName: 'Damage',
-        hintText: 'Enter damage'),
+        fieldName: 'No. Of Packets',
+        hintText: 'Number of packets (nos)'),
     InputfieldsDataModel(
         maxlines: 4,
         enabled: true,
@@ -93,7 +92,7 @@ class _AddMushroomDetailsScreenState extends State<AddMushroomDetailsScreen> {
                   textAlign: TextAlign.center,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  'Mushroom',
+                  'Seed',
                   style: AppFonts.getAppFont(
                       context: context,
                       color: AppColors.black,
