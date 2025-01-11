@@ -118,7 +118,7 @@ class _OrderDetailsInputScreenState extends State<OrderDetailsInputScreen> {
                 onTap: () => Navigator.push(
                     context,
                     CupertinoPageRoute(
-                        builder: (c) => const OrderDetailsScreen())),
+                        builder: (c) => const OrderDetailsPage())),
                 child: CircleAvatar(
                   radius: 25.r,
                   backgroundColor: AppColors.white,
