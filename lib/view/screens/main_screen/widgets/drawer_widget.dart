@@ -3,7 +3,9 @@ import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/constants/image_path_provider.dart';
 import 'package:leenas_mushrooms/core/utils/common_util.dart';
 import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
-import 'package:leenas_mushrooms/view/call_details_page/call_details_page.dart';
+import 'package:leenas_mushrooms/view/screens/call_details_page/call_details_page.dart';
+import 'package:leenas_mushrooms/view/screens/expense_detail_page/expense_detail_page.dart';
+import 'package:leenas_mushrooms/view/screens/income_detail_page/income_detail_page.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/home_screens/order_details_screen/order_details_screen.dart';
 
 class UserDrawer extends StatefulWidget {
@@ -77,7 +79,13 @@ class _UserDrawerState extends State<UserDrawer> {
               'Income Details',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const IncomeDetailPage()),
+              );
+            },
           ),
           const Divider(),
           ListTile(
@@ -86,7 +94,13 @@ class _UserDrawerState extends State<UserDrawer> {
               'Expense Details',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ExpanseDetailPage()),
+              );
+            },
           ),
           const Divider(),
           ListTile(
