@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:leenas_mushrooms/core/common_widgets/main_button.dart';
 import 'package:leenas_mushrooms/core/common_widgets/textformfield.dart';
 import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/constants/font_style.dart';
@@ -126,28 +127,34 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(18),
-                        color: AppColors.white),
+                      borderRadius: BorderRadius.circular(18),
+                      color: AppColors.white,
+                    ),
                     height: 55.h,
-                    width: size.width * .8.w,
+                    width: size.width * 0.8, // Adjust width dynamically
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
                           height: 53.h,
-                          width: size.width * .4.w,
+                          width: size.width *
+                              0.4, // Adjust the income button width
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(18),
-                              color: AppColors.black),
+                            borderRadius: BorderRadius.circular(18),
+                            color: AppColors.black,
+                          ),
                           child: Center(
-                              child: Text('Income',
-                                  style: AppFonts.getAppFont(
-                                    color: AppColors.white,
-                                    context: context,
-                                    size: 14,
-                                    weight: FontWeight.w700,
-                                  ))),
+                            child: Text(
+                              'Income',
+                              style: AppFonts.getAppFont(
+                                color: AppColors.white,
+                                context: context,
+                                size: 14,
+                                weight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
                         ),
                         Expanded(
                           child: Center(
@@ -157,19 +164,21 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                                   isIncome = false;
                                 });
                               },
-                              child: Text('Expense',
-                                  style: AppFonts.getAppFont(
-                                    color: AppColors.black,
-                                    context: context,
-                                    size: 14,
-                                    weight: FontWeight.w700,
-                                  )),
+                              child: Text(
+                                'Expense',
+                                style: AppFonts.getAppFont(
+                                  color: AppColors.black,
+                                  context: context,
+                                  size: 14,
+                                  weight: FontWeight.w700,
+                                ),
+                              ),
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
-                  )
+                  ),
                 ],
               )
             : Row(
@@ -178,10 +187,11 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(18),
-                        color: AppColors.white),
+                      borderRadius: BorderRadius.circular(18),
+                      color: AppColors.white,
+                    ),
                     height: 55.h,
-                    width: size.width * .8.w,
+                    width: size.width * 0.8, // Adjust width dynamically
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -194,34 +204,41 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                                   isIncome = true;
                                 });
                               },
-                              child: Text('Income',
-                                  style: AppFonts.getAppFont(
-                                    color: AppColors.black,
-                                    context: context,
-                                    size: 14,
-                                    weight: FontWeight.w700,
-                                  )),
+                              child: Text(
+                                'Income',
+                                style: AppFonts.getAppFont(
+                                  color: AppColors.black,
+                                  context: context,
+                                  size: 14,
+                                  weight: FontWeight.w700,
+                                ),
+                              ),
                             ),
                           ),
                         ),
                         Container(
                           height: 53.h,
-                          width: size.width * .4.w,
+                          width: size.width *
+                              0.4, // Adjust the expense button width
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(18),
-                              color: AppColors.black),
+                            borderRadius: BorderRadius.circular(18),
+                            color: AppColors.black,
+                          ),
                           child: Center(
-                              child: Text('Expense',
-                                  style: AppFonts.getAppFont(
-                                    color: AppColors.white,
-                                    context: context,
-                                    size: 14,
-                                    weight: FontWeight.w700,
-                                  ))),
+                            child: Text(
+                              'Expense',
+                              style: AppFonts.getAppFont(
+                                color: AppColors.white,
+                                context: context,
+                                size: 14,
+                                weight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
         h20,
@@ -279,8 +296,16 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                           ? ListView.builder(
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
-                              itemCount: incomeInputFields.length,
+                              itemCount: incomeInputFields.length + 1,
                               itemBuilder: (context, index) {
+                                if (index == incomeInputFields.length) {
+                                  return const Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 20),
+                                      child: MainButton(
+                                          buttonText: 'Add Details'));
+                                }
+
                                 return CommonTextformField(
                                     fillColor:
                                         incomeInputFields[index].fillColor,

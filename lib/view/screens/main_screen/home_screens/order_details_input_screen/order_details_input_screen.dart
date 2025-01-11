@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:leenas_mushrooms/core/common_widgets/main_button.dart';
 import 'package:leenas_mushrooms/core/common_widgets/textformfield.dart';
 import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/constants/font_style.dart';
@@ -197,8 +198,15 @@ class _OrderDetailsInputScreenState extends State<OrderDetailsInputScreen> {
                       ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: inputfields.length,
+                        itemCount: inputfields.length + 1,
                         itemBuilder: (context, index) {
+                          if (index == inputfields.length) {
+                            return const Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 20),
+                                child: MainButton(buttonText: 'Add Details'));
+                          }
+
                           return CommonTextformField(
                               fillColor: inputfields[index].fillColor,
                               maxlines: inputfields[index].maxlines,
