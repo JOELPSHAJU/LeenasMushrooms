@@ -3,6 +3,7 @@ import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/constants/image_path_provider.dart';
 import 'package:leenas_mushrooms/core/constants/size.dart';
 import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
+import 'package:leenas_mushrooms/view/screens/main_screen/home_screens/daily_data_screen/add_mushroom%20_details/add_mushroom_details.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/home_screens/daily_data_screen/widgets/main_screen_tiles.dart';
 
 class DailyDataScreen extends StatelessWidget {
@@ -20,10 +21,17 @@ class DailyDataScreen extends StatelessWidget {
             // ignore: prefer_const_constructors
             // BarChartMainScreen(),
             h20,
-            MainScreenListTile(
-              size: size,
-              image: ImagePathProvider.mushroomImageMainScreen,
-              text: 'Mushrooom',
+            GestureDetector(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const MushroomDetailsScreen()),
+              ),
+              child: MainScreenListTile(
+                size: size,
+                image: ImagePathProvider.mushroomImageMainScreen,
+                text: 'Mushrooom',
+              ),
             ),
             h20,
             MainScreenListTile(
