@@ -23,7 +23,9 @@ final callTypeController = TextEditingController();
 final currentStatusController = TextEditingController();
 
 class _CallDetailsScreenState extends State<CallDetailsScreen> {
-  String currentDate = "";
+  String currentDate = "Enter call type";
+  String selectedCustomerType = '';
+
   List<InputfieldsDataModel> inputfields = [
     InputfieldsDataModel(
         maxlines: 1,
@@ -56,7 +58,8 @@ class _CallDetailsScreenState extends State<CallDetailsScreen> {
         prefixIcon: null,
         controller: callTypeController,
         fieldName: 'Call Type',
-        hintText: 'Enter call type'),
+        hintText: 'Select customer type',
+        isDropdown: true), // New dropdown field
     InputfieldsDataModel(
         maxlines: 1,
         enabled: true,
@@ -96,15 +99,16 @@ class _CallDetailsScreenState extends State<CallDetailsScreen> {
               ),
               w10,
               Text(
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  'Call Details',
-                  style: AppFonts.getAppFont(
-                      context: context,
-                      color: AppColors.black,
-                      weight: FontWeight.w500,
-                      size: 21.sp)),
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                'Call Details',
+                style: AppFonts.getAppFont(
+                    context: context,
+                    color: AppColors.black,
+                    weight: FontWeight.w500,
+                    size: 21.sp),
+              ),
             ],
           ),
         ),
@@ -156,6 +160,86 @@ class _CallDetailsScreenState extends State<CallDetailsScreen> {
                               ),
                             ],
                           ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 20.h, left: 20.w),
+                        child: const HeadingRequestPage(title: 'Call Type'),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsets.only(left: 20.w, top: 20.h, right: 20.w),
+                        child: DropdownButtonFormField<String>(
+                          value: selectedCustomerType.isEmpty
+                              ? null
+                              : selectedCustomerType,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.black.withOpacity(0.3),
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.black.withOpacity(0.3),
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.black.withOpacity(0.3),
+                              ),
+                            ),
+                          ),
+                          dropdownColor: Colors.white,
+                          style: const TextStyle(
+                            color: Color(0xFFA2A2A2),
+                          ),
+                          items: const [
+                            DropdownMenuItem(
+                              value: 'Seed Customer',
+                              child: Text(
+                                'Seed Customer',
+                                style: TextStyle(
+                                  color: Color(0xFFA2A2A2),
+                                ),
+                              ),
+                            ),
+                            DropdownMenuItem(
+                              value: 'Bed Customer',
+                              child: Text(
+                                'Bed Customer',
+                                style: TextStyle(
+                                  color: Color(0xFFA2A2A2),
+                                ),
+                              ),
+                            ),
+                            DropdownMenuItem(
+                              value: 'Farm Consultancy Customer',
+                              child: Text(
+                                'Farm Consultancy Customer',
+                                style: TextStyle(
+                                  color: Color(0xFFA2A2A2),
+                                ),
+                              ),
+                            ),
+                            DropdownMenuItem(
+                              value: 'Need Callback',
+                              child: Text(
+                                'Need Callback',
+                                style: TextStyle(
+                                  color: Color(0xFFA2A2A2),
+                                ),
+                              ),
+                            ),
+                          ],
+                          onChanged: (value) {
+                            setState(() {
+                              selectedCustomerType = value!;
+                            });
+                          },
                         ),
                       ),
                       ListView.builder(
