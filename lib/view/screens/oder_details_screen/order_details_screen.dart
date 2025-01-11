@@ -2,19 +2,153 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:leenas_mushrooms/core/common_widgets/person_details_widget.dart';
 import 'package:leenas_mushrooms/core/constants/color.dart';
+import 'package:leenas_mushrooms/core/constants/font_style.dart';
 import 'package:leenas_mushrooms/core/constants/image_path_provider.dart';
 import 'package:leenas_mushrooms/core/constants/size.dart';
 import 'package:leenas_mushrooms/core/utils/common_util.dart';
 
-class OrderDetailsPage extends StatefulWidget {
-  const OrderDetailsPage({super.key});
+class OrderDetailsDialog extends StatelessWidget {
+  final Map<String, String> order;
+
+  const OrderDetailsDialog({super.key, required this.order});
 
   @override
-  State<OrderDetailsPage> createState() => _OrderDetailsPageState();
+  Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+
+    return AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      content: SizedBox(
+        width: size.width * 0.9, // Adjust width dynamically
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildDetailRow(
+              context,
+              label: 'Name',
+              value: order['name'] ?? 'N/A',
+            ),
+            const Divider(thickness: 0.5, color: Colors.grey),
+            _buildDetailRow(
+              context,
+              label: 'Phone',
+              value: order['phone'] ?? 'N/A',
+            ),
+            const Divider(thickness: 0.5, color: Colors.grey),
+            _buildDetailRow(
+              context,
+              label: 'Item',
+              value: 'Mushroom',
+            ),
+            const Divider(thickness: 0.5, color: Colors.grey),
+            _buildDetailRow(
+              context,
+              label: 'Quantity',
+              value: '44',
+            ),
+            const Divider(thickness: 0.5, color: Colors.grey),
+            _buildDetailRow(
+              context,
+              label: 'Pin Code',
+              value: '66666',
+            ),
+            const Divider(thickness: 0.5, color: Colors.grey),
+            _buildDetailRow(
+              context,
+              label: 'Adress',
+              value:
+                  'Akshya Nagar 1st Block 1st Cross, Rammurthy nagar, Bangalore-560016',
+            ),
+            const Divider(thickness: 0.5, color: Colors.grey),
+            _buildDetailRow(
+              context,
+              label: 'Courier data',
+              value: 'data',
+            ),
+            const Divider(thickness: 0.5, color: Colors.grey),
+            _buildDetailRow(
+              context,
+              label: 'Tracking ID',
+              value: order['trackingId'] ?? 'N/A',
+            ),
+            const Divider(thickness: 0.5, color: Colors.grey),
+            _buildDetailRow(
+              context,
+              label: 'Payment Status',
+              value: "Paid",
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// Helper function to build a standardized row for each detail
+  Widget _buildDetailRow(
+    BuildContext context, {
+    required String label,
+    required String value,
+  }) {
+    return Padding(
+      padding:
+          const EdgeInsets.symmetric(vertical: 6.0), // Spacing between rows
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          /// Container for Label
+          Container(
+            width: MediaQuery.of(context).size.width * 0.3, // Label width
+            alignment: Alignment.centerLeft,
+            child: Text(
+              label,
+              style: AppFonts.getAppFont(
+                context: context,
+                color: Colors.black,
+                weight: FontWeight.w400,
+                size: 18.0, // Adjust font size as needed
+              ),
+            ),
+          ),
+
+          const Text(":"),
+          const SizedBox(width: 8), // Spacing between colon and value
+
+          /// Container for Value
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(3),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  value,
+                  style: AppFonts.getAppFont(
+                    context: context,
+                    color: Colors.black,
+                    weight: FontWeight.w400,
+                    size: 18.0, // Adjust font size as needed
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
-class _OrderDetailsPageState extends State<OrderDetailsPage> {
-  bool isWithGST = true; // Tab selection state
+class OrderDetailspage extends StatefulWidget {
+  const OrderDetailspage({super.key});
+
+  @override
+  State<OrderDetailspage> createState() => _OrderDetailspageState();
+}
+
+class _OrderDetailspageState extends State<OrderDetailspage> {
+  bool isWithGST = true;
   String currentDate = DateFormat('dd MMMM yyyy').format(DateTime.now());
 
   // Example data list
@@ -33,8 +167,17 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       'trackingId': '#78465748',
       'date': '14 November 2024',
     },
-    // Add more orders here as needed
   ];
+
+  /// Show dialog method
+  void showOrderDetailsDialog(BuildContext context, Map<String, String> order) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return OrderDetailsDialog(order: order);
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +196,6 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       body: Column(
         children: [
           h30,
-          // Tab Bar for With/Without GST
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -148,9 +290,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                     child: PersonDetailsWidget(
                       name: order['name']!,
                       phoneNumber: order['phone']!,
-                      purpose: isWithGST
-                          ? 'Order With GST'
-                          : 'Order Without GST', // Update dynamically
+                      purpose:
+                          isWithGST ? 'Order With GST' : 'Order Without GST',
                       status: '', // You can add status data here if needed
                       date: order['date']!,
                       subHedone: 'Quantity',
@@ -160,7 +301,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                       isviewed:
                           true, // This can be set dynamically based on order status
                       viewOnPressed: () {
-                        // Handle view button action
+                        // Show alert dialog using the custom widget
+                        showOrderDetailsDialog(context, order);
                       },
                     ),
                   );
