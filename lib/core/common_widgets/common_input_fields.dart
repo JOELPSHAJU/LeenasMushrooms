@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/constants/font_style.dart';
+import 'package:leenas_mushrooms/core/constants/size.dart';
 import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/widgets/heading_input_fields.dart';
 
@@ -74,7 +76,7 @@ class _CommonTextformFieldState extends State<CommonTextformField> {
             initialValue: widget.dependentData,
             enabled: widget.enabled,
             style: AppFonts.getAppFont(
-              color: AppColors.black,
+              color: AppColors.textfieldTextColor,
               context: context,
               size: 14,
               weight: FontWeight.w400,
@@ -106,7 +108,7 @@ class _CommonTextformFieldState extends State<CommonTextformField> {
                         child: Text(
                           widget.sufixText.toString(),
                           style: AppFonts.getAppFont(
-                            color: AppColors.black,
+                            color: AppColors.textfieldTextColor,
                             context: context,
                             size: 14,
                             weight: FontWeight.w500,
@@ -118,25 +120,119 @@ class _CommonTextformFieldState extends State<CommonTextformField> {
               hintText: widget.hintText,
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: Colors.black.withOpacity(.30)),
+                borderSide: BorderSide(color: AppColors.dropdownBorderColor),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: Colors.black.withOpacity(.30)),
+                borderSide: BorderSide(color: AppColors.dropdownBorderColor),
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: Colors.black.withOpacity(.30)),
+                borderSide: BorderSide(color: AppColors.dropdownBorderColor),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide: const BorderSide(color: AppColors.black),
+                borderSide:
+                    BorderSide(color: Colors.black.withValues(alpha: .50)),
               ),
               hintStyle: AppFonts.getAppFont(
-                color: Colors.black.withOpacity(.30),
+                color: AppColors.textfieldTextColor,
                 context: context,
                 size: 14,
                 weight: FontWeight.w400,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CommonDropdown extends StatefulWidget {
+  CommonDropdown({
+    super.key,
+    required this.results,
+    required this.fieldName,
+    required this.hintText,
+    this.fillColor,
+    required this.options,
+  });
+
+  String results;
+  final List<String> options;
+  final String hintText;
+  final Color? fillColor;
+  final String fieldName;
+
+  @override
+  State<CommonDropdown> createState() => _CommonDropdownState();
+}
+
+class _CommonDropdownState extends State<CommonDropdown> {
+  String? selectedStatus;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedStatus = widget.hintText;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsetsDirectional.only(top: 20.h, start: 20.w, end: 20.w),
+      child: Column(
+        children: [
+          HeadingRequestPage(title: widget.fieldName),
+          h10,
+          Container(
+            height: 55.h,
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: 15.w),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8.r),
+              border: Border.all(color: AppColors.dropdownBorderColor),
+            ),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<String>(
+                menuMaxHeight: 300.h,
+                borderRadius: BorderRadius.circular(10.r),
+                value:
+                    selectedStatus == widget.hintText ? null : selectedStatus,
+                hint: Text(
+                  widget.hintText,
+                  style: TextStyle(
+                    color: AppColors.textfieldTextColor,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                isExpanded: true,
+                icon: Icon(CupertinoIcons.chevron_down,
+                    size: 20.w, color: AppColors.black15),
+                dropdownColor: Colors.white,
+                items: widget.options
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(
+                      value,
+                      style: TextStyle(
+                        color: AppColors.textfieldTextColor,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    selectedStatus = value;
+                    widget.results = value.toString();
+                  });
+                },
               ),
             ),
           ),

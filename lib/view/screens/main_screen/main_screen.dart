@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:leenas_mushrooms/core/common_widgets/common_appbar.dart';
 import 'package:leenas_mushrooms/core/constants/color.dart';
-import 'package:leenas_mushrooms/core/constants/image_path_provider.dart';
-import 'package:leenas_mushrooms/core/utils/common_util.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/home_screens/call_details_screen/call_details_screen.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/home_screens/daily_data_screen/daily_data_screen.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/home_screens/income_expense_screen/income_expense_screen.dart';
@@ -25,14 +24,7 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 70,
-          iconTheme: const IconThemeData(color: AppColors.black),
-          centerTitle: true,
-          title: loadAssetPic(ImagePathProvider.logoletters, height: 40),
-          backgroundColor: AppColors.white,
-          surfaceTintColor: AppColors.white,
-        ),
+        appBar: const CommonAppBar(iconNeeded: true),
         drawer: const UserDrawer(),
         extendBody: true,
         body: ValueListenableBuilder<int>(

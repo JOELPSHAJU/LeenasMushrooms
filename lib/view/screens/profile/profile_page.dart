@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:leenas_mushrooms/core/common_widgets/common_appbar.dart';
 import 'package:leenas_mushrooms/core/common_widgets/person_details_widget.dart';
+import 'package:leenas_mushrooms/core/common_widgets/screen_route_title.dart';
 import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/constants/font_style.dart';
-import 'package:leenas_mushrooms/core/constants/image_path_provider.dart';
 import 'package:leenas_mushrooms/core/constants/size.dart';
-import 'package:leenas_mushrooms/core/utils/common_util.dart';
 import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -20,50 +20,14 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: AppBar(
-        toolbarHeight: 70,
-        iconTheme: const IconThemeData(color: AppColors.black),
-        centerTitle: true,
-        title: loadAssetPic(ImagePathProvider.logoletters, height: 40),
-        backgroundColor: AppColors.white,
-        surfaceTintColor: AppColors.white,
-      ),
+      backgroundColor: const Color(0xFFF3F3F3),
+      appBar: const CommonAppBar(iconNeeded: false),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  radius: 25.r,
-                  backgroundColor: const Color.fromARGB(255, 224, 224, 224),
-                  child: Center(
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      size: 20.h,
-                      color: AppColors.black,
-                    ),
-                  ),
-                ),
-                w10,
-                Text(
-                  'Profile',
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppFonts.getAppFont(
-                    context: context,
-                    color: AppColors.black,
-                    weight: FontWeight.w500,
-                    size: 21.sp,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          ScreenRouteTitle(title: 'Profile'),
           const SizedBox(height: 20),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
@@ -81,76 +45,95 @@ class _ProfilePageState extends State<ProfilePage> {
               subHedTwoData: 'Pending',
             ),
           ),
-          h30,
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              "CALL RECORDS",
-              style: AppFonts.getAppFont(
-                context: context,
-                color: AppColors.black,
-                weight: FontWeight.w400,
-                size: 19.sp,
-              ),
-            ),
-          ),
           h10,
           Expanded(
-            child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return Column(
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10.r)),
+              width: size.width,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      width: double.infinity,
-                      color:
-                          const Color(0xFFF5F5F5), // Set the background color
+                    Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 12), // Inner padding
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '8:45 AM',
-                                style: AppFonts.getAppFont(
-                                  context: context,
-                                  color: AppColors.black,
-                                  weight: FontWeight.w400,
-                                  size: 16.sp,
-                                ),
-                              ),
-                              Text(
-                                '8590182736',
-                                style: AppFonts.getAppFont(
-                                  context: context,
-                                  color: AppColors.gray200,
-                                  weight: FontWeight.w400,
-                                  size: 16.sp,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            ' 21/12/2024',
-                            style: AppFonts.getAppFont(
-                              context: context,
-                              color: AppColors.black,
-                              weight: FontWeight.w400,
-                              size: 14.sp,
-                            ),
-                          ),
-                        ],
+                          horizontal: 16, vertical: 20),
+                      child: Text(
+                        "CALL RECORDS",
+                        style: AppFonts.getAppFont(
+                          context: context,
+                          color: AppColors.black,
+                          weight: FontWeight.w400,
+                          size: 19.sp,
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 3), // Separate list items
+                    h10,
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              color: const Color(
+                                  0xFFF5F5F5), // Set the background color
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 12), // Inner padding
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '8:45 AM',
+                                        style: AppFonts.getAppFont(
+                                          context: context,
+                                          color: AppColors.black,
+                                          weight: FontWeight.w400,
+                                          size: 16.sp,
+                                        ),
+                                      ),
+                                      Text(
+                                        '8590182736',
+                                        style: AppFonts.getAppFont(
+                                          context: context,
+                                          color: AppColors.gray200,
+                                          weight: FontWeight.w400,
+                                          size: 16.sp,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    ' 21/12/2024',
+                                    style: AppFonts.getAppFont(
+                                      context: context,
+                                      color: AppColors.black,
+                                      weight: FontWeight.w400,
+                                      size: 14.sp,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 3), // Separate list items
+                          ],
+                        );
+                      },
+                    ),
                   ],
-                );
-              },
+                ),
+              ),
             ),
-          ),
+          )
         ],
       ),
     );

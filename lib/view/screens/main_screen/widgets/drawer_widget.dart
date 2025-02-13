@@ -1,13 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:leenas_mushrooms/core/constants/color.dart';
+import 'package:leenas_mushrooms/core/constants/font_style.dart';
 import 'package:leenas_mushrooms/core/constants/image_path_provider.dart';
 import 'package:leenas_mushrooms/core/utils/common_util.dart';
 import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
 import 'package:leenas_mushrooms/view/screens/call_details_page/call_details_page.dart';
 import 'package:leenas_mushrooms/view/screens/expense_detail_page/expense_detail_page.dart';
 import 'package:leenas_mushrooms/view/screens/income_detail_page/income_detail_page.dart';
+import 'package:leenas_mushrooms/view/screens/login_screen/login_screen_wrapper.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/home_screens/order_details_screen/order_details_screen.dart';
-import 'package:leenas_mushrooms/view/screens/profile/profile_page.dart';
 import 'package:leenas_mushrooms/view/screens/show_harvest_details/mushroom_harvest_details.dart';
 
 class UserDrawer extends StatefulWidget {
@@ -21,6 +23,7 @@ class _UserDrawerState extends State<UserDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: AppColors.white,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
@@ -54,12 +57,14 @@ class _UserDrawerState extends State<UserDrawer> {
 
               Navigator.push(
                 context,
-                MaterialPageRoute(
+                CupertinoPageRoute(
                     builder: (context) => const CallDetailsPage()),
               );
             },
           ),
-          const Divider(),
+          Divider(
+            color: AppColors.grey300,
+          ),
           ListTile(
             contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
             title: const Text(
@@ -69,12 +74,14 @@ class _UserDrawerState extends State<UserDrawer> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => const OrderDetailsPage()),
+                CupertinoPageRoute(
+                    builder: (context) => const OrderDetailsScreen()),
               );
             },
           ),
-          const Divider(),
+          Divider(
+            color: AppColors.grey300,
+          ),
           ListTile(
             contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
             title: const Text(
@@ -84,12 +91,14 @@ class _UserDrawerState extends State<UserDrawer> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
+                CupertinoPageRoute(
                     builder: (context) => const IncomeDetailPage()),
               );
             },
           ),
-          const Divider(),
+          Divider(
+            color: AppColors.grey300,
+          ),
           ListTile(
             contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
             title: const Text(
@@ -99,12 +108,14 @@ class _UserDrawerState extends State<UserDrawer> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
+                CupertinoPageRoute(
                     builder: (context) => const ExpanseDetailPage()),
               );
             },
           ),
-          const Divider(),
+          Divider(
+            color: AppColors.grey300,
+          ),
           ListTile(
             contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
             title: const Text(
@@ -114,36 +125,105 @@ class _UserDrawerState extends State<UserDrawer> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
+                CupertinoPageRoute(
                     builder: (context) => const MushroomHarvestDetails()),
               );
             },
           ),
-          const Divider(),
-          ListTile(
-            contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-            title: const Text(
-              'profile',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ProfilePage()),
-              );
-            },
+          Divider(
+            color: AppColors.grey300,
           ),
-          const Divider(),
           ListTile(
             contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
             title: const Text(
               'Sign Out',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            onTap: () {},
+            onTap: () {
+              showLogoutDialog(context);
+            },
           ),
         ],
       ),
     );
   }
+}
+
+void showLogoutDialog(context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        backgroundColor: AppColors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.r),
+        ),
+        title: Text(
+          "Log Out?",
+          style: AppFonts.getAppFont(
+            size: 20.sp,
+            context: context,
+            color: AppColors.black,
+            weight: FontWeight.w500,
+          ),
+        ),
+        content: Text(
+          'Are you sure you want to log out?',
+          style: AppFonts.getAppFont(
+            size: 16.sp,
+            context: context,
+            color: AppColors.black,
+            weight: FontWeight.w500,
+          ),
+        ),
+        actions: <Widget>[
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                side: const BorderSide(color: AppColors.primaryColor),
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            child: Text(
+              "Cancel",
+              style: AppFonts.getAppFont(
+                size: 14.sp,
+                context: context,
+                color: AppColors.primaryColor,
+                weight: FontWeight.w500,
+              ),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                CupertinoPageRoute(builder: (context) => const LoginPage()),
+                (Route<dynamic> route) => false, // Remove all previous routes
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primaryColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            child: Text(
+              "Log Out",
+              style: AppFonts.getAppFont(
+                size: 14.sp,
+                context: context,
+                color: AppColors.white,
+                weight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ],
+      );
+    },
+  );
 }

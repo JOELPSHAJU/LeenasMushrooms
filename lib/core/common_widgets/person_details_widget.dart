@@ -44,9 +44,11 @@ class PersonDetailsWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
       ),
       child: Container(
-        decoration: const BoxDecoration(
-          color: Color(0xFFF3F3F3), // Set card background color
-          borderRadius: BorderRadius.all(Radius.circular(16)),
+        decoration: BoxDecoration(
+          color: isProfile
+              ? const Color.fromARGB(255, 255, 255, 255)
+              : const Color(0XFFF3F3F3), // Set card background color
+          borderRadius: const BorderRadius.all(Radius.circular(16)),
         ),
         width: double.infinity,
         height: isProfile ? 200 : 248,
@@ -66,7 +68,9 @@ class PersonDetailsWidget extends StatelessWidget {
                 ),
               ),
             ),
-            const Divider(thickness: 1, color: Colors.white),
+            Divider(
+                thickness: 1,
+                color: isProfile ? Colors.grey.shade300 : AppColors.white),
 
             // Details Section
             Padding(

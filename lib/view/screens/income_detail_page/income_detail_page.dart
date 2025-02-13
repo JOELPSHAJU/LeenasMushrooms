@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:leenas_mushrooms/core/common_widgets/common_appbar.dart';
+import 'package:leenas_mushrooms/core/common_widgets/screen_route_title.dart';
 import 'package:leenas_mushrooms/core/common_widgets/scrolleble_data_table.dart';
-import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/constants/font_style.dart';
-import 'package:leenas_mushrooms/core/constants/image_path_provider.dart';
-import 'package:leenas_mushrooms/core/utils/common_util.dart';
 
 class IncomeDetailPage extends StatelessWidget {
   const IncomeDetailPage({super.key});
@@ -22,49 +21,27 @@ class IncomeDetailPage extends StatelessWidget {
     final List<List<String>> rowData = [
       ['1/12/2024', 'User 1', ' ', '34000'],
       ['2/12/2024', 'User 2', '', '25000'],
+      ['3/12/2024', 'User 3', ' ', '34000'],
+      ['4/12/2024', 'User 4', '', '25000'],
+      ['5/12/2024', 'User 5', ' ', '34000'],
+      ['6/12/2024', 'User 6', '', '25000'],
+      ['7/12/2024', 'User 7', ' ', '34000'],
+      ['8/12/2024', 'User 8', '', '25000'],
+      ['9/12/2024', 'User 9', ' ', '34000'],
+      ['10/12/2024', 'User 10', '', '25000'],
+      ['11/12/2024', 'User 11', ' ', '34000'],
+      ['12/12/2024', 'User 12', '', '25000'],
+      ['13/12/2024', 'User 13', ' ', '34000'],
+      ['14/12/2024', 'User 14', '', '25000'],
       // Add more rows as needed
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 70,
-        iconTheme: const IconThemeData(color: AppColors.black),
-        centerTitle: true,
-        title: loadAssetPic(ImagePathProvider.logoletters, height: 40),
-        backgroundColor: AppColors.white,
-        surfaceTintColor: AppColors.white,
-      ),
+      appBar: const CommonAppBar(iconNeeded: false),
       backgroundColor: const Color(0xFFF5F5F5),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Row(
-              children: [
-                const CircleAvatar(
-                  radius: 25,
-                  backgroundColor: Colors.white,
-                  child: Center(
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      size: 20,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  'Income Details',
-                  style: AppFonts.getAppFont(
-                    context: context,
-                    size: 21,
-                    weight: FontWeight.w500,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-          ),
+           ScreenRouteTitle(title: 'Income Details'),
           Expanded(
             child: ScrollableTable(
               columnLabels: columnLabels,

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:leenas_mushrooms/core/common_widgets/common_input_fields.dart';
+import 'package:leenas_mushrooms/core/common_widgets/date_picker.dart';
 import 'package:leenas_mushrooms/core/common_widgets/main_button.dart';
-import 'package:leenas_mushrooms/core/common_widgets/textformfield.dart';
 import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/constants/font_style.dart';
 import 'package:leenas_mushrooms/core/constants/size.dart';
 import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
-import 'package:leenas_mushrooms/view/screens/main_screen/widgets/heading_input_fields.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/widgets/inputfield_data_model.dart';
 
 class IncomeExpenseScreen extends StatefulWidget {
@@ -23,6 +23,7 @@ final expenseUserdetailsController = TextEditingController();
 final sourceController = TextEditingController();
 final incomeAmountController = TextEditingController();
 bool isIncome = true;
+String dateController = "";
 
 class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
   String currentDate = "";
@@ -99,10 +100,15 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                 radius: 25.r,
                 backgroundColor: AppColors.white,
                 child: Center(
-                  child: Icon(
-                    Icons.arrow_back_ios,
-                    size: 20.h,
-                    color: AppColors.black,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(
+                      Icons.arrow_back_ios,
+                      size: 20.h,
+                      color: AppColors.black,
+                    ),
                   ),
                 ),
               ),
@@ -131,15 +137,14 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                       color: AppColors.white,
                     ),
                     height: 55.h,
-                    width: size.width * 0.8, // Adjust width dynamically
+                    width: size.width * 0.8,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
                           height: 53.h,
-                          width: size.width *
-                              0.4, // Adjust the income button width
+                          width: size.width * 0.4,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(18),
                             color: AppColors.black,
@@ -255,43 +260,10 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 20.h, left: 20.w),
-                        child: const HeadingRequestPage(title: 'Date'),
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.only(left: 20.w, top: 20.h, right: 20.w),
-                        child: Container(
-                          width: size.width,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                  color: Colors.black.withOpacity(.30))),
-                          height: 50,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              w10,
-                              Icon(
-                                Icons.calendar_month_outlined,
-                                color: Colors.black.withOpacity(.30),
-                              ),
-                              w10,
-                              Text(
-                                currentDate,
-                                style: AppFonts.getAppFont(
-                                  color: Colors.black.withOpacity(.30),
-                                  context: context,
-                                  size: 14,
-                                  weight: FontWeight.w400,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      CommonDatePicker(
+                          hint: currentDate,
+                          startDateHeading: 'Date',
+                          selectedItem: dateController),
                       isIncome
                           ? ListView.builder(
                               physics: const NeverScrollableScrollPhysics(),
@@ -324,8 +296,15 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                           : ListView.builder(
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
-                              itemCount: expenseInputFields.length,
+                              itemCount: expenseInputFields.length + 1,
                               itemBuilder: (context, index) {
+                                if (index == incomeInputFields.length) {
+                                  return const Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 20),
+                                      child: MainButton(
+                                          buttonText: 'Add Details'));
+                                }
                                 return CommonTextformField(
                                     fillColor:
                                         expenseInputFields[index].fillColor,

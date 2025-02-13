@@ -1,6 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:leenas_mushrooms/core/common_widgets/main_button.dart';
-import 'package:leenas_mushrooms/core/common_widgets/textformfield.dart';
+import 'package:leenas_mushrooms/core/common_widgets/common_input_fields.dart';
 import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/constants/image_path_provider.dart';
 import 'package:leenas_mushrooms/core/constants/size.dart';
@@ -70,7 +71,7 @@ class MobileLoginPage extends StatelessWidget {
                           onTap: () {
                             Navigator.push(
                                 context,
-                                MaterialPageRoute(
+                                CupertinoPageRoute(
                                     builder: (c) => MainScreen()));
                           },
                           child: const MainButton(buttonText: 'Login')),
