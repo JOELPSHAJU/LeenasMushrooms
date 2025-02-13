@@ -197,7 +197,7 @@ class _CommonDropdownState extends State<CommonDropdown> {
             ),
             child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(
-                menuMaxHeight: 300.h,
+                menuMaxHeight: 250.h,
                 borderRadius: BorderRadius.circular(10.r),
                 value:
                     selectedStatus == widget.hintText ? null : selectedStatus,

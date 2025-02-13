@@ -7,6 +7,7 @@ import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/constants/font_style.dart';
 import 'package:leenas_mushrooms/core/constants/size.dart';
 import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
+import 'package:leenas_mushrooms/view/screens/main_screen/widgets/heading_input_fields.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/widgets/inputfield_data_model.dart';
 
 class IncomeExpenseScreen extends StatefulWidget {
@@ -23,7 +24,8 @@ final expenseUserdetailsController = TextEditingController();
 final sourceController = TextEditingController();
 final incomeAmountController = TextEditingController();
 bool isIncome = true;
-String dateController = "";
+String dateController ="";
+
 
 class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
   String currentDate = "";
@@ -264,6 +266,12 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                           hint: currentDate,
                           startDateHeading: 'Date',
                           selectedItem: dateController),
+                           CommonDropdown(
+                          results: expenseTypeController.text,
+                          fieldName: "Expense Type",
+                          hintText: 'Select expense type',
+                          options: const ["Petrol", "Saw Dust","Salary","Maintenence","Courier Charge","Electricity","EMI","PP","Maze","Water Charges","Wrap","Tray","Husk","Bran"]),
+                     
                       isIncome
                           ? ListView.builder(
                               physics: const NeverScrollableScrollPhysics(),
