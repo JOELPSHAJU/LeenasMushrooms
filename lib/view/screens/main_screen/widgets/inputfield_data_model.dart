@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class InputfieldsDataModel {
@@ -7,6 +6,9 @@ class InputfieldsDataModel {
   final Color fillColor;
   final String fieldName;
   final String hintText;
+  final bool? isRemarkNeed;
+  bool? quantity = false;
+  final List<String>? options;
   final Icon? prefixIcon;
   final TextEditingController controller;
   final bool isDropdown; // Added for dropdown support
@@ -14,6 +16,9 @@ class InputfieldsDataModel {
   InputfieldsDataModel({
     required this.maxlines,
     required this.hintText,
+    this.quantity,
+    this.isRemarkNeed,
+    this.options,
     required this.fieldName,
     this.enabled,
     required this.fillColor,

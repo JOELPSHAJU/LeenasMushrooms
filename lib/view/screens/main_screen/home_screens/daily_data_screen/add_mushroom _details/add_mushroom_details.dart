@@ -6,6 +6,7 @@ import 'package:leenas_mushrooms/core/common_widgets/common_input_fields.dart';
 import 'package:leenas_mushrooms/core/common_widgets/date_picker.dart';
 import 'package:leenas_mushrooms/core/common_widgets/main_button.dart';
 import 'package:leenas_mushrooms/core/common_widgets/screen_route_title.dart';
+import 'package:leenas_mushrooms/core/common_widgets/textfield_with_quantity.dart';
 import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/main_screen.dart';
@@ -38,6 +39,7 @@ class _AddMushroomDetailsScreenState extends State<AddMushroomDetailsScreen> {
         prefixIcon: null,
         controller: quantityController,
         fieldName: 'Quantity',
+        quantity: true,
         hintText: 'Enter quantity'),
     InputfieldsDataModel(
         maxlines: 1,
@@ -52,6 +54,7 @@ class _AddMushroomDetailsScreenState extends State<AddMushroomDetailsScreen> {
         enabled: true,
         fillColor: AppColors.white,
         prefixIcon: null,
+        isRemarkNeed: false,
         controller: remarksController,
         fieldName: 'Remarks',
         hintText: 'Enter remarks'),
@@ -111,15 +114,26 @@ class _AddMushroomDetailsScreenState extends State<AddMushroomDetailsScreen> {
                                 child: MainButton(buttonText: 'Add Details'));
                           }
 
-                          return CommonTextformField(
-                              fillColor: inputfields[index].fillColor,
-                              maxlines: inputfields[index].maxlines,
-                              hintText: inputfields[index].hintText,
-                              enabled: inputfields[index].enabled == true
-                                  ? true
-                                  : false,
-                              fieldName: inputfields[index].fieldName,
-                              controller: inputfields[index].controller);
+                          return inputfields[index].quantity == true
+                              ? TextfieldWithQuantity(
+                                  fillColor: inputfields[index].fillColor,
+                                  maxlines: inputfields[index].maxlines,
+                                  hintText: inputfields[index].hintText,
+                                  enabled: inputfields[index].enabled == true
+                                      ? true
+                                      : false,
+                                  fieldName: inputfields[index].fieldName,
+                                  controller: inputfields[index].controller)
+                              : CommonTextformField(
+                                  fillColor: inputfields[index].fillColor,
+                                  maxlines: inputfields[index].maxlines,
+                                  hintText: inputfields[index].hintText,
+                                    isRemarkNeed: inputfields[index].isRemarkNeed,
+                                  enabled: inputfields[index].enabled == true
+                                      ? true
+                                      : false,
+                                  fieldName: inputfields[index].fieldName,
+                                  controller: inputfields[index].controller);
                         },
                       ),
                     ]))))

@@ -8,7 +8,6 @@ import 'package:leenas_mushrooms/core/common_widgets/screen_route_title.dart';
 import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/main_screen.dart';
-import 'package:leenas_mushrooms/view/screens/main_screen/widgets/heading_input_fields.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/widgets/inputfield_data_model.dart';
 
 class CallDetailsScreen extends StatefulWidget {
@@ -95,12 +94,10 @@ class _CallDetailsScreenState extends State<CallDetailsScreen> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                      
                       CommonDatePicker(
                           hint: currentDate,
                           startDateHeading: 'Date',
                           selectedItem: dateController),
-                      
                       CommonDropdown(
                           results: callTypeController,
                           fieldName: "Call Type",
@@ -111,7 +108,6 @@ class _CallDetailsScreenState extends State<CallDetailsScreen> {
                             "Farm Consultancy Customer",
                             "Need Callback (office)",
                             "Need Callback (Jithu)"
-                            
                           ]),
                       ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),

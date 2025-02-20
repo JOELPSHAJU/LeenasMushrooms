@@ -4,15 +4,17 @@ import 'package:leenas_mushrooms/core/constants/font_style.dart';
 import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
 
 class HeadingRequestPage extends StatelessWidget {
-  const HeadingRequestPage({super.key, required this.title, this.isPurchase});
+  const HeadingRequestPage(
+      {super.key, required this.title, this.isRemarkNeed, this.isPurchase});
 
   final bool? isPurchase;
   final String title;
+  final bool? isRemarkNeed;
 
   @override
   Widget build(BuildContext context) {
     return isPurchase == true
-        ? SizedBox()
+        ? const SizedBox()
         : Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,15 +32,17 @@ class HeadingRequestPage extends StatelessWidget {
                           weight: FontWeight.w500,
                         ),
                       ),
-                      TextSpan(
-                        text: ' *',
-                        style: AppFonts.getAppFont(
-                          context: context,
-                          color: Colors.red,
-                          size: 16.sp,
-                          weight: FontWeight.w500,
-                        ),
-                      ),
+                      isRemarkNeed != false
+                          ? TextSpan(
+                              text: ' *',
+                              style: AppFonts.getAppFont(
+                                context: context,
+                                color: Colors.red,
+                                size: 16.sp,
+                                weight: FontWeight.w500,
+                              ),
+                            )
+                          : const TextSpan(),
                     ],
                   ),
                 ),

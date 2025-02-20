@@ -4,6 +4,7 @@ import 'package:leenas_mushrooms/core/common_widgets/common_input_fields.dart';
 import 'package:leenas_mushrooms/core/common_widgets/date_picker.dart';
 import 'package:leenas_mushrooms/core/common_widgets/main_button.dart';
 import 'package:leenas_mushrooms/core/common_widgets/screen_route_title.dart';
+import 'package:leenas_mushrooms/core/common_widgets/textfield_with_quantity.dart';
 import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/constants/size.dart';
 import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
@@ -77,6 +78,7 @@ class _OrderDetailsInputScreenState extends State<OrderDetailsInputScreen> {
     InputfieldsDataModel(
         maxlines: 1,
         enabled: true,
+        quantity: true,
         fillColor: AppColors.white,
         prefixIcon: null,
         controller: quantityController,
@@ -88,16 +90,25 @@ class _OrderDetailsInputScreenState extends State<OrderDetailsInputScreen> {
         fillColor: AppColors.white,
         prefixIcon: null,
         controller: courierDataController,
-        fieldName: 'Courier Data',
-        hintText: 'Enter courier data'),
+        fieldName: 'Courier Provider',
+        hintText: 'Enter courier provider'),
     InputfieldsDataModel(
         maxlines: 1,
         enabled: true,
         fillColor: AppColors.white,
         prefixIcon: null,
+        controller: courierDataController,
+        fieldName: 'Courier Reference No.',
+        hintText: 'Enter courier reference no.'),
+    InputfieldsDataModel(
+        maxlines: 1,
+        enabled: true,
+        fillColor: AppColors.white,
+        prefixIcon: null,
+        options: ['Dispatched', 'In Transit', 'Delivered', 'Return'],
         controller: trackingStatusController,
         fieldName: 'Tracking Status',
-        hintText: 'Enter tracking status')
+        hintText: 'Select tracking status'),
   ];
 
   @override
@@ -152,15 +163,33 @@ class _OrderDetailsInputScreenState extends State<OrderDetailsInputScreen> {
                                 child: MainButton(buttonText: 'Add Details'));
                           }
 
-                          return CommonTextformField(
-                              fillColor: inputfields[index].fillColor,
-                              maxlines: inputfields[index].maxlines,
-                              hintText: inputfields[index].hintText,
-                              enabled: inputfields[index].enabled == true
-                                  ? true
-                                  : false,
-                              fieldName: inputfields[index].fieldName,
-                              controller: inputfields[index].controller);
+                          return inputfields[index].quantity == true
+                              ? TextfieldWithQuantity(
+                                  fillColor: inputfields[index].fillColor,
+                                  maxlines: inputfields[index].maxlines,
+                                  hintText: inputfields[index].hintText,
+                                  enabled: inputfields[index].enabled == true
+                                      ? true
+                                      : false,
+                                  fieldName: inputfields[index].fieldName,
+                                  controller: inputfields[index].controller)
+                              : inputfields[index].options != null
+                                  ? CommonDropdown(
+                                      results: trackingStatusController.text,
+                                      fieldName: inputfields[index].fieldName,
+                                      hintText: inputfields[index].hintText,
+                                      options: inputfields[index].options ?? [])
+                                  : CommonTextformField(
+                                      fillColor: inputfields[index].fillColor,
+                                      maxlines: inputfields[index].maxlines,
+                                      hintText: inputfields[index].hintText,
+                                      enabled:
+                                          inputfields[index].enabled == true
+                                              ? true
+                                              : false,
+                                      fieldName: inputfields[index].fieldName,
+                                      controller:
+                                          inputfields[index].controller);
                         },
                       ),
                       h50
