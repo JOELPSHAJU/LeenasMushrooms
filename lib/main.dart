@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
 import 'package:leenas_mushrooms/services/api_services.dart';
+import 'package:leenas_mushrooms/view/bloc/add_call_details/add_call_details_bloc.dart';
 import 'package:leenas_mushrooms/view/bloc/login_bloc/login_bloc.dart';
 import 'package:leenas_mushrooms/view/screens/splash_screen/splash_screen.dart';
 
@@ -52,6 +53,11 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) => LoginBloc(
+              apiService: context.read<ApiService>(),
+            ),
+          ),
+           BlocProvider(
+            create: (context) => AddCallDetailsBloc(
               apiService: context.read<ApiService>(),
             ),
           ),

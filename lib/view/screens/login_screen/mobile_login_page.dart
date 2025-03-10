@@ -35,7 +35,8 @@ class MobileLoginPage extends StatelessWidget {
           Navigator.push(
               context, CupertinoPageRoute(builder: (c) => MainScreen()));
         } else if (state is LoginFailure) {
-          failedSnakbar(context, 'Login Failed');
+          failedSnakbar(context,
+              'Invalid Credentials! Please try a different username or password.');
         }
       },
       child: Scaffold(
