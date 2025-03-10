@@ -29,22 +29,6 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
   String currentDate = "";
   List<InputfieldsDataModel> incomeInputFields = [
     InputfieldsDataModel(
-        maxlines: 3,
-        enabled: true,
-        fillColor: AppColors.white,
-        prefixIcon: null,
-        controller: incomeUserdetailsController,
-        fieldName: 'User Details',
-        hintText: 'Enter user details'),
-    InputfieldsDataModel(
-        maxlines: 1,
-        enabled: true,
-        fillColor: AppColors.white,
-        prefixIcon: null,
-        controller: sourceController,
-        fieldName: 'Source',
-        hintText: 'Enter source'),
-    InputfieldsDataModel(
         maxlines: 1,
         enabled: true,
         fillColor: AppColors.white,
@@ -54,22 +38,6 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
         hintText: 'Enter amount'),
   ];
   List<InputfieldsDataModel> expenseInputFields = [
-    InputfieldsDataModel(
-        maxlines: 3,
-        enabled: true,
-        fillColor: AppColors.white,
-        prefixIcon: null,
-        controller: expenseTypeController,
-        fieldName: 'User Details',
-        hintText: 'Enter user details'),
-    InputfieldsDataModel(
-        maxlines: 1,
-        enabled: true,
-        fillColor: AppColors.white,
-        prefixIcon: null,
-        controller: expenseAmountController,
-        fieldName: 'Expense Type',
-        hintText: 'Enter expense type'),
     InputfieldsDataModel(
         maxlines: 1,
         enabled: true,
@@ -264,26 +232,85 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                           hint: currentDate,
                           startDateHeading: 'Date',
                           selectedItem: dateController),
-                      isIncome
+                      !isIncome
                           ? CommonDropdown(
                               results: expenseTypeController.text,
                               fieldName: "Expense Type",
                               hintText: 'Select expense type',
                               options: const [
-                                  "Petrol",
-                                  "Saw Dust",
-                                  "Salary",
-                                  "Maintenence",
-                                  "Courier Charge",
-                                  "Electricity",
+                                  "ABEL",
+                                  "AGRI LOAN",
+                                  "AUTO CHARGE",
+                                  "BANK CHARGES",
+                                  "CHITTY",
+                                  "CONSTRUCTION",
+                                  "COURIER CHARGES",
+                                  "DONATION",
+                                  "DRIVER ALLOWANCE",
+                                  "DTDC",
                                   "EMI",
-                                  "PP",
-                                  "Maze",
-                                  "Water Charges",
-                                  "Wrap",
-                                  "Tray",
-                                  "Husk",
-                                  "Bran"
+                                  "FARM EXPENSES",
+                                  "FOOD EXPENSE",
+                                  "GAS",
+                                  "GAS PURCHASE",
+                                  "HEALTH INSURANCE",
+                                  "HOUSE RENT",
+                                  "IMPORT EXPORT LICENSE",
+                                  "INTERNET",
+                                  "JEETHO DIESEL CREDIT BILL",
+                                  "JEETHO EXPENSES",
+                                  "JEETHO PLUS",
+                                  "KSEB DEPOSIT",
+                                  "OFFICE EXPENSES",
+                                  "PETROL-OFFICE",
+                                  "PRINTING EXPENSE",
+                                  "PURCHASE WITHOUT GST",
+                                  "SALARY",
+                                  "SALARY ADVANCES",
+                                  "SALARY-BENGALIS",
+                                  "SALARY IN ADVANCE BENGALIS",
+                                  "SERVICE AND REPAIR",
+                                  "SNACKS",
+                                  "TRANSPORTATION",
+                                  "WAGANOR PETROL",
+                                  "ECP TRADING",
+                                  "NEOPOLY PACK",
+                                  "DIO FUELS TEEKOY",
+                                  "MATHA SURGICALS",
+                                  "PHARM O SALES",
+                                  "K & T AGROW MILLS PVT LTD",
+                                  "ASSOCIATED RUBBER CHEMICALS",
+                                  "BRMSCO",
+                                  "NORTHMAPS GLOBAL ECOSOLUTIONS PVT LTD",
+                                  "AGROWTEIN",
+                                  "KINDLEARC SEVEN",
+                                  "LOGIN IT SOLUTIONS",
+                                  "KAIRALI STOREWALLS",
+                                  "BERITE SOLUTIONS",
+                                  "DIO FUELS",
+                                  "ASIAN GLASS & PLYWOODS",
+                                  "SHALIMAR TRADE LINKS",
+                                  "BIZZARO UNIFORMS",
+                                ])
+                          : const SizedBox(),
+                      isIncome
+                          ? CommonDropdown(
+                              results: expenseTypeController.text,
+                              fieldName: "Income Type",
+                              hintText: 'Select income type',
+                              options: const [
+                                  " BED",
+                                  "CALCIUM CARBONATE",
+                                  "CLING WRAP FILM",
+                                  "DRY MUSHROOM",
+                                  "EAT IN TRAY",
+                                  "FARM CONSULTANCY",
+                                  "MUSHROOM SPAWN",
+                                  "P P COVER",
+                                  "PELLET SACK",
+                                  "TAPE",
+                                  "TRAINING FEE",
+                                  "VARIETY MUSHROOM SPAWN"
                                 ])
                           : const SizedBox(),
                       !isIncome
@@ -320,68 +347,31 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                               shrinkWrap: true,
                               itemCount: expenseInputFields.length + 1,
                               itemBuilder: (context, index) {
-                                if (index == incomeInputFields.length) {
+                                if (index == expenseInputFields.length) {
                                   return const Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 20, vertical: 20),
-                                      child: MainButton(
-                                          buttonText: 'Add Details'));
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 20),
+                                    child:
+                                        MainButton(buttonText: 'Add Details'),
+                                  );
                                 }
                                 return CommonTextformField(
-                                    fillColor:
-                                        expenseInputFields[index].fillColor,
-                                    maxlines:
-                                        expenseInputFields[index].maxlines,
-                                    hintText:
-                                        expenseInputFields[index].hintText,
-                                    enabled:
-                                        expenseInputFields[index].enabled ==
-                                                true
-                                            ? true
-                                            : false,
-                                    fieldName:
-                                        expenseInputFields[index].fieldName,
-                                    controller:
-                                        expenseInputFields[index].controller);
+                                  fillColor:
+                                      expenseInputFields[index].fillColor,
+                                  maxlines: expenseInputFields[index].maxlines,
+                                  hintText: expenseInputFields[index].hintText,
+                                  enabled:
+                                      expenseInputFields[index].enabled == true
+                                          ? true
+                                          : false,
+                                  fieldName:
+                                      expenseInputFields[index].fieldName,
+                                  controller:
+                                      expenseInputFields[index].controller,
+                                );
                               },
                             ),
                       h10,
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.w),
-                        child: SizedBox(
-                          width: double.infinity,
-                          height: 50.h,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  AppColors.black, // Button background color
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    10), // Rounded corners
-                              ),
-                            ),
-                            onPressed: () {
-                              // Handle button press
-                              if (isIncome) {
-                                print("Income details submitted");
-                                // Add your submission logic here
-                              } else {
-                                print("Expense details submitted");
-                                // Add your submission logic here
-                              }
-                            },
-                            child: Text(
-                              'Submit',
-                              style: AppFonts.getAppFont(
-                                context: context,
-                                color: AppColors.white, // Button text color
-                                size: 16,
-                                weight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
                     ])))),
       ]),
     );

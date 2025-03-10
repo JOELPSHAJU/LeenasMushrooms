@@ -1,6 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
+import 'package:leenas_mushrooms/services/api_services.dart';
+import 'package:leenas_mushrooms/view/bloc/login_bloc/login_bloc.dart';
 import 'package:leenas_mushrooms/view/screens/splash_screen/splash_screen.dart';
 
 void main() async {
@@ -39,14 +43,24 @@ class MyApp extends StatelessWidget {
     }
 
     return ScreenUtilInit(
-      minTextAdapt: true,
-      splitScreenMode: false,
-      designSize: getDesignSize(context),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        scaffoldMessengerKey: scaffoldMessngerKey,
-        home: const SplashScreen(),
-      ),
-    );
+        minTextAdapt: true,
+        splitScreenMode: false,
+        designSize: getDesignSize(context),
+        child: RepositoryProvider(
+      create: (context) => ApiService(Dio()),  
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => LoginBloc(
+              apiService: context.read<ApiService>(),
+            ),
+          ),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          scaffoldMessengerKey: scaffoldMessngerKey,
+          home: const SplashScreen(),
+        ),
+      )));
   }
 }

@@ -10,4 +10,7 @@ class ImagePathProvider {
   static const settingsIcon ="assets/images/settings_icon.svg";
   static const pdfIcon ="assets/images/pdfLogo.svg";
   static const dropdownIcon="assets/images/dropdownIcon.svg";
+  static const failedSnakbarIcon="assets/images/failed.png";
+  static const successSnakbarIcon="assets/images/success.png";
+  static const warningSnakbarIcon="assets/images/warning.png";
 }
