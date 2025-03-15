@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:leenas_mushrooms/core/common_widgets/common_dropdown.dart';
 import 'package:leenas_mushrooms/core/common_widgets/common_input_fields.dart';
 import 'package:leenas_mushrooms/core/common_widgets/date_picker.dart';
 import 'package:leenas_mushrooms/core/common_widgets/main_button.dart';
@@ -229,11 +230,17 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                       CommonDatePicker(
+                         onDateChanged: (value) {
+                              dateController= value;
+                            },
                           hint: currentDate,
                           startDateHeading: 'Date',
                           selectedItem: dateController),
                       !isIncome
                           ? CommonDropdown(
+                             onChanged:(value) {
+                          expenseTypeController.text = value;
+                        },
                               results: expenseTypeController.text,
                               fieldName: "Expense Type",
                               hintText: 'Select expense type',
@@ -295,6 +302,9 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                           : const SizedBox(),
                       isIncome
                           ? CommonDropdown(
+                             onChanged:(value) {
+                          expenseTypeController.text = value;
+                        },
                               results: expenseTypeController.text,
                               fieldName: "Income Type",
                               hintText: 'Select income type',

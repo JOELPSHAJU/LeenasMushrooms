@@ -3,32 +3,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
-import 'package:leenas_mushrooms/services/api_services.dart';
+import 'package:leenas_mushrooms/services/client/dio_client.dart';
+import 'package:leenas_mushrooms/services/dataverse_repository.dart';
+import 'package:leenas_mushrooms/services/rest_client.dart';
 import 'package:leenas_mushrooms/view/bloc/add_call_details/add_call_details_bloc.dart';
 import 'package:leenas_mushrooms/view/bloc/login_bloc/login_bloc.dart';
+import 'package:leenas_mushrooms/view/screens/login_screen/login_screen_wrapper.dart';
+import 'package:leenas_mushrooms/view/screens/main_screen/main_screen.dart';
 import 'package:leenas_mushrooms/view/screens/splash_screen/splash_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+
+ValueNotifier<bool> isLoggedIn = ValueNotifier(false);
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Set the preferred orientation to portrait up
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  runApp(const MyApp());
+  Dio dio = getDioClient();
+
+  runApp(MyApp(dio: dio));
 }
 
 class MyApp extends StatelessWidget {
+  final Dio dio;
   static final navigatorKey = GlobalKey<NavigatorState>();
-  static final scaffoldMessngerKey = GlobalKey<ScaffoldMessengerState>();
-  const MyApp({super.key});
+  static final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+
+  const MyApp({super.key, required this.dio});
 
   @override
   Widget build(BuildContext context) {
-    // return MaterialApp.router(
-    //   debugShowCheckedModeBanner: false,
-    //   scaffoldMessengerKey: scaffoldMessngerKey,
-    //   routerConfig: router,
-    // );
-
     const double kMobileBreakpoint = 600;
     const double kTabletBreakpoint = 1024;
 
@@ -44,29 +47,60 @@ class MyApp extends StatelessWidget {
     }
 
     return ScreenUtilInit(
-        minTextAdapt: true,
-        splitScreenMode: false,
-        designSize: getDesignSize(context),
-        child: RepositoryProvider(
-      create: (context) => ApiService(Dio()),  
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => LoginBloc(
-              apiService: context.read<ApiService>(),
-            ),
-          ),
-           BlocProvider(
-            create: (context) => AddCallDetailsBloc(
-              apiService: context.read<ApiService>(),
-            ),
-          ),
-        ],
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          scaffoldMessengerKey: scaffoldMessngerKey,
-          home: const SplashScreen(),
+      minTextAdapt: true,
+      splitScreenMode: false,
+      designSize: getDesignSize(context),
+      child: RepositoryProvider(
+        create: (context) => DataVerseRepository(
+          client: RestClient(dio),
         ),
-      )));
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => LoginBloc(
+                repo: context.read<DataVerseRepository>(),
+              ),
+            ),
+            BlocProvider(
+              create: (context) => AddCallDetailsBloc(
+                repo: context.read<DataVerseRepository>(),
+              ),
+            ),
+          ],
+          child: MaterialApp(
+            navigatorKey: navigatorKey,
+            debugShowCheckedModeBanner: false,
+            scaffoldMessengerKey: scaffoldMessengerKey,
+            home: AuthWrapper(),
+          ),
+        ),
+      ),
+    );
   }
 }
+
+
+class AuthWrapper extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<String?>(
+      future: _checkToken(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const SplashScreen();
+        }
+        if (snapshot.hasData && snapshot.data != null) {
+         
+          return  MainScreen();
+        }
+        return  LoginPage();
+      },
+    );
+  }
+
+  Future<String?> _checkToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('auth_token');
+  }
+}
+

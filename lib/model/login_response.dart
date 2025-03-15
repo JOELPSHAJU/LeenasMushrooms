@@ -13,12 +13,15 @@ String loginResponseToJson(LoginResponse data) => json.encode(data.toJson());
 
 @JsonSerializable()
 class LoginResponse {
+    @JsonKey(name: "status")
+    String? status;
     @JsonKey(name: "message")
     String? message;
     @JsonKey(name: "token")
     String? token;
 
     LoginResponse({
+        this.status,
         this.message,
         this.token,
     });

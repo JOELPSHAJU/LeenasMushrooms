@@ -9,3 +9,5 @@ final class LoginButtonPressed extends LoginEvent {
 
   LoginButtonPressed({required this.username, required this.password});
 }
+
+final class LogoutEvent extends LoginEvent {}

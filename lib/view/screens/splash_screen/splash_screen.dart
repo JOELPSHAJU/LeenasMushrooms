@@ -13,11 +13,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    gotoLogin();
-    super.initState();
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +30,5 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  Future<void> gotoLogin() async {
-    await Future.delayed(const Duration(seconds: 3));
-    Navigator.pushReplacement(
-        context, CupertinoPageRoute(builder: (ctx) => const LoginPage()));
-  }
+ 
 }

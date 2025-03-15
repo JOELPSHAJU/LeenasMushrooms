@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/constants/font_style.dart';
 import 'package:leenas_mushrooms/core/constants/image_path_provider.dart';
 import 'package:leenas_mushrooms/core/utils/common_util.dart';
 import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
+import 'package:leenas_mushrooms/view/bloc/login_bloc/login_bloc.dart';
 import 'package:leenas_mushrooms/view/screens/call_details_page/call_details_page.dart';
 import 'package:leenas_mushrooms/view/screens/expense_detail_page/expense_detail_page.dart';
 import 'package:leenas_mushrooms/view/screens/income_detail_page/income_detail_page.dart';
@@ -200,10 +202,11 @@ void showLogoutDialog(context) {
           ),
           ElevatedButton(
             onPressed: () {
+              context.read<LoginBloc>().add(LogoutEvent());
               Navigator.pushAndRemoveUntil(
                 context,
                 CupertinoPageRoute(builder: (context) => const LoginPage()),
-                (Route<dynamic> route) => false, // Remove all previous routes
+                (Route<dynamic> route) => false, 
               );
             },
             style: ElevatedButton.styleFrom(

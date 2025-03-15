@@ -1,0 +1,2 @@
+/Users/joelpshaju/Desktop/PROJECTS/leenas_mushrooms/android/app/.cxx/Debug/2g4u1q3i/x86_64/CMakeFiles/edit_cache.dir
+/Users/joelpshaju/Desktop/PROJECTS/leenas_mushrooms/android/app/.cxx/Debug/2g4u1q3i/x86_64/CMakeFiles/rebuild_cache.dir

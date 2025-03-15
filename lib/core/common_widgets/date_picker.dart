@@ -14,6 +14,7 @@ class CommonDatePicker extends StatefulWidget {
   String? dependentData;
   String selectedItem;
   final String startDateHeading;
+  final ValueChanged<String> onDateChanged; // Callback to update parent
 
   CommonDatePicker({
     super.key,
@@ -22,6 +23,7 @@ class CommonDatePicker extends StatefulWidget {
     required this.hint,
     required this.startDateHeading,
     required this.selectedItem,
+    required this.onDateChanged,
   });
 
   @override
@@ -35,8 +37,9 @@ class _CommonDatePickerState extends State<CommonDatePicker> {
   @override
   void initState() {
     super.initState();
-    selectedStartDate = widget.dependentData ?? _getCurrentDate();
-    widget.selectedItem = selectedStartDate;
+    selectedStartDate = widget.selectedItem.isNotEmpty
+        ? widget.selectedItem
+        : widget.dependentData ?? _getCurrentDate();
   }
 
   @override
@@ -149,6 +152,9 @@ class _CommonDatePickerState extends State<CommonDatePicker> {
                   ),
                 ),
                 onPressed: () {
+                  setState(() {
+                    widget.onDateChanged(selectedStartDate); // Notify parent
+                  });
                   Navigator.pop(context);
                 },
               ),
@@ -161,8 +167,7 @@ class _CommonDatePickerState extends State<CommonDatePicker> {
                 onDateTimeChanged: (DateTime newDateTime) {
                   setState(() {
                     selectedStartDate =
-                        '${newDateTime.day}/${newDateTime.month}/${newDateTime.year}';
-                    widget.selectedItem = selectedStartDate;
+                        '${newDateTime.month}/${newDateTime.day}/${newDateTime.year}';
                   });
                 },
               ),
@@ -175,6 +180,6 @@ class _CommonDatePickerState extends State<CommonDatePicker> {
 
   String _getCurrentDate() {
     DateTime now = DateTime.now();
-    return '${now.day}/${now.month}/${now.year}';
+    return '${now.month}/${now.day}/${now.year}';
   }
 }

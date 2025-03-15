@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:leenas_mushrooms/core/common_widgets/common_appbar.dart';
+import 'package:leenas_mushrooms/core/common_widgets/common_dropdown.dart';
 import 'package:leenas_mushrooms/core/common_widgets/common_input_fields.dart';
 import 'package:leenas_mushrooms/core/common_widgets/date_picker.dart';
 import 'package:leenas_mushrooms/core/common_widgets/main_button.dart';
@@ -91,11 +92,17 @@ class _AddBedDetailsScreenState extends State<AddBedDetailsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                       CommonDatePicker(
+                         onDateChanged: (value) {
+                              dateController= value;
+                            },
                           hint: currentDate,
                           startDateHeading: 'Date',
                           selectedItem: dateController),
                       // Harvest Time Selection
                       CommonDropdown(
+                           onChanged:(value) {
+                          timecontroller = value;
+                        },
                           results: timecontroller,
                           fieldName: 'Harvest Time',
                           hintText: 'Select harvest time',

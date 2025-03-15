@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:leenas_mushrooms/controller/local_modals/call_details_add_model.dart';
+import 'package:leenas_mushrooms/core/common_widgets/common_dropdown.dart';
 import 'package:leenas_mushrooms/core/common_widgets/common_input_fields.dart';
 import 'package:leenas_mushrooms/core/common_widgets/custom_button.dart';
 import 'package:leenas_mushrooms/core/common_widgets/date_picker.dart';
@@ -109,10 +110,16 @@ class _CallDetailsScreenState extends State<CallDetailsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CommonDatePicker(
+                            onDateChanged: (value) {
+                              dateController= value;
+                            },
                               hint: currentDate,
                               startDateHeading: 'Date',
                               selectedItem: dateController),
                           CommonDropdown(
+                               onChanged:(value) {
+                          callTypeController = value;
+                        },
                               results: callTypeController,
                               fieldName: "Call Type",
                               hintText: 'Select call type',

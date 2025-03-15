@@ -1,1 +1,1 @@
-const baseurl = "https://leenas-mushroom.onrender.com/";
+const baseurl = "https://leenas-mushroom.onrender.com";

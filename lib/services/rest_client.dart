@@ -4,11 +4,11 @@ import 'package:leenas_mushrooms/model/call_details_add_model_response.dart';
 import 'package:leenas_mushrooms/model/login_response.dart';
 import 'package:retrofit/retrofit.dart';
 
-part 'api_services.g.dart';
+part 'rest_client.g.dart';
 
 @RestApi(baseUrl: baseurl)
-abstract class ApiService {
-  factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
+abstract class RestClient {
+  factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
   @POST('/auth/loginuser')
   Future<LoginResponse> loginUser(@Body() Map<String, dynamic> body);

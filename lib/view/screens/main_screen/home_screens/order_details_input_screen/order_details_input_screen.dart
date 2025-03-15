@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:leenas_mushrooms/core/common_widgets/common_dropdown.dart';
 import 'package:leenas_mushrooms/core/common_widgets/common_input_fields.dart';
 import 'package:leenas_mushrooms/core/common_widgets/date_picker.dart';
 import 'package:leenas_mushrooms/core/common_widgets/main_button.dart';
@@ -138,10 +139,16 @@ class _OrderDetailsInputScreenState extends State<OrderDetailsInputScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                       CommonDatePicker(
+                         onDateChanged: (value) {
+                              dateController= value;
+                            },
                           hint: currentDate,
                           startDateHeading: 'Date',
                           selectedItem: dateController),
                       CommonDropdown(
+                        onChanged:(value) {
+                          orderTypeController = value;
+                        },
                           results: orderTypeController,
                           fieldName: 'Order Type',
                           hintText: 'Select order type',
@@ -175,6 +182,9 @@ class _OrderDetailsInputScreenState extends State<OrderDetailsInputScreen> {
                                   controller: inputfields[index].controller)
                               : inputfields[index].options != null
                                   ? CommonDropdown(
+                                     onChanged:(value) {
+                          trackingStatusController.text = value;
+                        },
                                       results: trackingStatusController.text,
                                       fieldName: inputfields[index].fieldName,
                                       hintText: inputfields[index].hintText,

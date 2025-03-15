@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'api_services.dart';
+part of 'rest_client.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,9 +8,9 @@ part of 'api_services.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
-class _ApiService implements ApiService {
-  _ApiService(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://leenas-mushroom.onrender.com/';
+class _RestClient implements RestClient {
+  _RestClient(this._dio, {this.baseUrl, this.errorLogger}) {
+    baseUrl ??= 'https://leenas-mushroom.onrender.com';
   }
 
   final Dio _dio;
