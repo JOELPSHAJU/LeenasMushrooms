@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:leenas_mushrooms/controller/local_modals/call_details_add_model.dart';
+import 'package:leenas_mushrooms/controller/local_modals/call_details_post_model.dart';
 import 'package:leenas_mushrooms/services/dataverse_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -27,7 +27,7 @@ class AddCallDetailsBloc
         "purpose": event.details.purpose,
         "current_status": event.details.currentStatus
       };
-      final response = await repo.addCallDetails(credentials: credentials);
+      final response = await repo.addCallDetailsApi(credentials: credentials);
       log(response.toString());
       emit(AddCallDetailsSuccess());
     } catch (e) {

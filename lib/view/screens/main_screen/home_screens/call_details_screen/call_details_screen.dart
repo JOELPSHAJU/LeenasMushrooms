@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:leenas_mushrooms/controller/local_modals/call_details_add_model.dart';
+import 'package:leenas_mushrooms/controller/local_modals/call_details_post_model.dart';
 import 'package:leenas_mushrooms/core/common_widgets/common_dropdown.dart';
 import 'package:leenas_mushrooms/core/common_widgets/common_input_fields.dart';
 import 'package:leenas_mushrooms/core/common_widgets/custom_button.dart';
+import 'package:leenas_mushrooms/core/common_widgets/custom_validators.dart';
 import 'package:leenas_mushrooms/core/common_widgets/date_picker.dart';
 import 'package:leenas_mushrooms/core/common_widgets/main_button.dart';
 import 'package:leenas_mushrooms/core/common_widgets/screen_route_title.dart';
@@ -73,7 +74,8 @@ class _CallDetailsScreenState extends State<CallDetailsScreen> {
 
   @override
   void initState() {
-    currentDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
+    currentDate = DateFormat('MM/dd/yyyy').format(DateTime.now());
+
     super.initState();
   }
 
@@ -84,6 +86,14 @@ class _CallDetailsScreenState extends State<CallDetailsScreen> {
       listener: (context, state) {
         if (state is AddCallDetailsSuccess) {
           successSnakbar(context, "Call Details added Sucessfully");
+          currentDate = DateFormat('MM/dd/yyyy').format(DateTime.now());
+          selectedCustomerType = '';
+          nameController.text = "";
+          phoneNumberController.text = "";
+          purposeController.text = "";
+          currentStatusController.text = "";
+          dateController = "";
+          callTypeController = '';
         }
       },
       child: Scaffold(
@@ -110,16 +120,16 @@ class _CallDetailsScreenState extends State<CallDetailsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CommonDatePicker(
-                            onDateChanged: (value) {
-                              dateController= value;
-                            },
+                              onDateChanged: (value) {
+                                dateController = value;
+                              },
                               hint: currentDate,
                               startDateHeading: 'Date',
                               selectedItem: dateController),
                           CommonDropdown(
-                               onChanged:(value) {
-                          callTypeController = value;
-                        },
+                              onChanged: (value) {
+                                callTypeController = value;
+                              },
                               results: callTypeController,
                               fieldName: "Call Type",
                               hintText: 'Select call type',
@@ -159,8 +169,11 @@ class _CallDetailsScreenState extends State<CallDetailsScreen> {
                                               if (addCallDetailsFormKey
                                                   .currentState!
                                                   .validate()) {
-                                                final data = CallDetailsAddModel(
-                                                    date: dateController,
+                                                final data = CallDetailsPostModel(
+                                                    date: dateController
+                                                            .isNotEmpty
+                                                        ? dateController
+                                                        : currentDate,
                                                     callType:
                                                         callTypeController,
                                                     name: nameController.text,
@@ -197,6 +210,7 @@ class _CallDetailsScreenState extends State<CallDetailsScreen> {
                                   fillColor: inputfields[index].fillColor,
                                   maxlines: inputfields[index].maxlines,
                                   hintText: inputfields[index].hintText,
+                                  validator: validateNotNull,
                                   enabled: inputfields[index].enabled == true
                                       ? true
                                       : false,

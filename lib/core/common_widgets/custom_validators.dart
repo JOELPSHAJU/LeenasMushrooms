@@ -39,7 +39,7 @@ String? validateMobileNumber(String? number) {
   return null;
 }
 
-String? validateUsername(String? value) {
+String? validateNotNull(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please fill the fields';
   }

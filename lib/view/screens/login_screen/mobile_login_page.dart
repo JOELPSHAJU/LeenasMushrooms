@@ -70,7 +70,7 @@ class MobileLoginPage extends StatelessWidget {
                             fieldName: 'UserName',
                             maxlines: 1,
                             enabled: true,
-                            validator: validateUsername,
+                            validator: validateNotNull,
                             fillColor: AppColors.white,
                             hintText: AppText.enterEmail,
                             prefixwidget: Icon(
@@ -82,7 +82,7 @@ class MobileLoginPage extends StatelessWidget {
                             fieldName: 'Password',
                             maxlines: 1,
                             enabled: true,
-                            validator: validateUsername,
+                            validator: validateNotNull,
                             fillColor: AppColors.white,
                             hintText: AppText.enterPassword,
                             prefixwidget: Icon(

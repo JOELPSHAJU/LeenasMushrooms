@@ -29,6 +29,7 @@ class CommonDropdown extends StatefulWidget {
 
 class _CommonDropdownState extends State<CommonDropdown> {
   String? selectedStatus;
+  Color borderColor = AppColors.dropdownBorderColor; // Moved into state
 
   @override
   void initState() {
@@ -41,57 +42,92 @@ class _CommonDropdownState extends State<CommonDropdown> {
     return Padding(
       padding: EdgeInsetsDirectional.only(top: 20.h, start: 20.w, end: 20.w),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           HeadingRequestPage(title: widget.fieldName),
           h10,
-          Container(
-            height: 55.h,
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: 15.w),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8.r),
-              border: Border.all(color: AppColors.dropdownBorderColor),
-            ),
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<String>(
-                menuMaxHeight: 250.h,
-                borderRadius: BorderRadius.circular(10.r),
-                value: selectedStatus,
-                hint: Text(
-                  widget.hintText,
-                  style: TextStyle(
-                    color: AppColors.textfieldTextColor,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                isExpanded: true,
-                icon: Icon(CupertinoIcons.chevron_down,
-                    size: 20.w, color: AppColors.black15),
-                dropdownColor: Colors.white,
-                items: widget.options
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(
-                      value,
-                      style: TextStyle(
-                        color: AppColors.textfieldTextColor,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
+          FormField<String>(
+            initialValue: selectedStatus,
+            validator: (value) {
+              if (selectedStatus == null || selectedStatus!.isEmpty) {
+                setState(
+                    () => borderColor = const Color.fromARGB(255, 174, 4, 4));
+                return 'Please select a ${widget.fieldName.toLowerCase()}';
+              } else {
+                setState(() => borderColor = AppColors.dropdownBorderColor);
+                return null;
+              }
+            },
+            builder: (FormFieldState<String> state) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 55.h,
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8.r),
+                      border: Border.all(color: borderColor),
+                    ),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        menuMaxHeight: 250.h,
+                        borderRadius: BorderRadius.circular(10.r),
+                        value: selectedStatus,
+                        hint: Text(
+                          widget.hintText,
+                          style: TextStyle(
+                            color: AppColors.textfieldTextColor,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        isExpanded: true,
+                        icon: Icon(CupertinoIcons.chevron_down,
+                            size: 20.w, color: AppColors.black15),
+                        dropdownColor: Colors.white,
+                        items: widget.options
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: TextStyle(
+                                color: AppColors.textfieldTextColor,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            selectedStatus = value;
+                            borderColor = AppColors
+                                .dropdownBorderColor; // Reset border color
+                            widget.onChanged(value!); // Notify parent
+                            state.didChange(value); // Update form field state
+                          });
+                        },
                       ),
                     ),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    selectedStatus = value;
-                    widget.onChanged(value!); // Notify parent
-                  });
-                },
-              ),
-            ),
+                  ),
+                  if (state.hasError)
+                    Padding(
+                      padding: EdgeInsets.only(top: 5.h),
+                      child: Text(
+                        state.errorText!,
+                        style: TextStyle(
+                          color: const Color.fromARGB(255, 170, 13, 13),
+                          fontSize: 12.sp,
+                        ),
+                      ),
+                    ),
+                ],
+              );
+            },
           ),
         ],
       ),

@@ -1,4 +1,4 @@
-class CallDetailsAddModel {
+class CallDetailsPostModel {
   final String date;
   final String callType;
   final String name;
@@ -6,7 +6,7 @@ class CallDetailsAddModel {
   final String purpose;
   final String currentStatus;
 
-  CallDetailsAddModel({
+  CallDetailsPostModel({
     required this.date,
     required this.callType,
     required this.name,

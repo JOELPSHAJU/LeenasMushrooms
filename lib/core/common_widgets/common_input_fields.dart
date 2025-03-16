@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/constants/font_style.dart';
-import 'package:leenas_mushrooms/core/constants/size.dart';
 import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/widgets/heading_input_fields.dart';
 
@@ -95,20 +93,18 @@ class _CommonTextformFieldState extends State<CommonTextformField> {
             decoration: InputDecoration(
               fillColor: widget.enabled ? widget.fillColor : AppColors.white,
               filled: true,
-              // Corrected prefixIcon GestureDetector
               prefixIcon: widget.prefixwidget != null
                   ? GestureDetector(
-                      onTap: widget.prefixOntap, // Correct onTap call
+                      onTap: widget.prefixOntap,
                       child: Padding(
                           padding: const EdgeInsetsDirectional.only(
                               start: 5, top: 13.5, bottom: 13.5),
                           child: widget.prefixwidget),
                     )
                   : null,
-              // Corrected suffixIcon GestureDetector
               suffixIcon: widget.sufixText != null
                   ? GestureDetector(
-                      onTap: widget.sufixOntap, // Correct onTap call
+                      onTap: widget.sufixOntap,
                       child: Padding(
                         padding: const EdgeInsetsDirectional.only(
                           end: 12,
@@ -127,6 +123,10 @@ class _CommonTextformFieldState extends State<CommonTextformField> {
                     )
                   : widget.suffixWidget,
               hintText: widget.hintText,
+              errorBorder:  OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: Colors.red.shade700),
+              ),
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
                 borderSide: BorderSide(color: AppColors.dropdownBorderColor),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:leenas_mushrooms/controller/local_modals/order_details_add_model.dart';
 import 'package:leenas_mushrooms/core/common_widgets/common_dropdown.dart';
 import 'package:leenas_mushrooms/core/common_widgets/common_input_fields.dart';
 import 'package:leenas_mushrooms/core/common_widgets/date_picker.dart';
@@ -27,6 +28,7 @@ final phoneNumberController = TextEditingController();
 final catalougeController = TextEditingController();
 final quantityController = TextEditingController();
 final courierDataController = TextEditingController();
+final courierReferenceController = TextEditingController();
 
 final trackingStatusController = TextEditingController();
 
@@ -98,7 +100,7 @@ class _OrderDetailsInputScreenState extends State<OrderDetailsInputScreen> {
         enabled: true,
         fillColor: AppColors.white,
         prefixIcon: null,
-        controller: courierDataController,
+        controller: courierReferenceController,
         fieldName: 'Courier Reference No.',
         hintText: 'Enter courier reference no.'),
     InputfieldsDataModel(
@@ -139,16 +141,16 @@ class _OrderDetailsInputScreenState extends State<OrderDetailsInputScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                       CommonDatePicker(
-                         onDateChanged: (value) {
-                              dateController= value;
-                            },
+                          onDateChanged: (value) {
+                            dateController = value;
+                          },
                           hint: currentDate,
                           startDateHeading: 'Date',
                           selectedItem: dateController),
                       CommonDropdown(
-                        onChanged:(value) {
-                          orderTypeController = value;
-                        },
+                          onChanged: (value) {
+                            orderTypeController = value;
+                          },
                           results: orderTypeController,
                           fieldName: 'Order Type',
                           hintText: 'Select order type',
@@ -164,10 +166,31 @@ class _OrderDetailsInputScreenState extends State<OrderDetailsInputScreen> {
                         itemCount: inputfields.length + 1,
                         itemBuilder: (context, index) {
                           if (index == inputfields.length) {
-                            return const Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 20),
-                                child: MainButton(buttonText: 'Add Details'));
+                            return GestureDetector(
+                              onTap: () {
+                                OrderDetailsAddModel data =
+                                    OrderDetailsAddModel(
+                                        date: dateController,
+                                        item: "",
+                                        orderType: orderTypeController,
+                                        name: nameController.text,
+                                        address: addressController.text,
+                                        pincode: pincodeController.text,
+                                        phoneNumber: phoneNumberController.text,
+                                        catalogue: catalougeController.text,
+                                        quantity: quantityController.text,
+                                        courierData: courierDataController.text,
+                                        courierProvider: courierDataController.text,
+                                        courierRefNo: courierReferenceController.text,
+                                        trackingId:"",
+                                        trackingStatus: trackingStatusController.text,
+                                        paymentStatus: "payme");
+                              },
+                              child: const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 20),
+                                  child: MainButton(buttonText: 'Add Details')),
+                            );
                           }
 
                           return inputfields[index].quantity == true
@@ -182,9 +205,9 @@ class _OrderDetailsInputScreenState extends State<OrderDetailsInputScreen> {
                                   controller: inputfields[index].controller)
                               : inputfields[index].options != null
                                   ? CommonDropdown(
-                                     onChanged:(value) {
-                          trackingStatusController.text = value;
-                        },
+                                      onChanged: (value) {
+                                        trackingStatusController.text = value;
+                                      },
                                       results: trackingStatusController.text,
                                       fieldName: inputfields[index].fieldName,
                                       hintText: inputfields[index].hintText,

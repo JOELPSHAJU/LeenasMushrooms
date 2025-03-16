@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:leenas_mushrooms/api_services/base_url.dart';
+import 'package:leenas_mushrooms/controller/local_modals/call_details_get_model.dart';
 import 'package:leenas_mushrooms/model/call_details_add_model_response.dart';
 import 'package:leenas_mushrooms/model/login_response.dart';
 import 'package:retrofit/retrofit.dart';
@@ -16,4 +17,11 @@ abstract class RestClient {
   @POST("/calldetails/addCalldetails")
   Future<CallDetailsAddModelResponse> addCallDetails(
       @Body() Map<String, dynamic> body);
+
+  @POST("/orderdetails/addOrderdetails")
+  Future<CallDetailsAddModelResponse> addOrderDetails(
+      @Body() Map<String, dynamic> body);
+
+  @GET('/calldetails/getCalldetails?page=1&limit=10')
+  Future<CallDetailsGetModel> getCallDetails();
 }
