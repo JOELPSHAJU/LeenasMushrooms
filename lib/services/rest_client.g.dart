@@ -78,7 +78,7 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<CallDetailsAddModelResponse> addOrderDetails(
+  Future<OrderDetailsSucessResponse> addOrderDetails(
     Map<String, dynamic> body,
   ) async {
     final _extra = <String, dynamic>{};
@@ -86,7 +86,7 @@ class _RestClient implements RestClient {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body);
-    final _options = _setStreamType<CallDetailsAddModelResponse>(
+    final _options = _setStreamType<OrderDetailsSucessResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -97,9 +97,9 @@ class _RestClient implements RestClient {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late CallDetailsAddModelResponse _value;
+    late OrderDetailsSucessResponse _value;
     try {
-      _value = CallDetailsAddModelResponse.fromJson(_result.data!);
+      _value = OrderDetailsSucessResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

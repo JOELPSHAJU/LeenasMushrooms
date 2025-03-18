@@ -20,7 +20,7 @@ class ScreenRouteTitle extends StatelessWidget {
             backgroundColor: Colors.white,
             child: Center(
               child: IconButton(
-                onPressed:action==null? () => Navigator.pop(context):action,
+                onPressed:action ?? () => Navigator.pop(context),
                 icon: const Icon(
                   Icons.arrow_back_ios,
                   size: 20,

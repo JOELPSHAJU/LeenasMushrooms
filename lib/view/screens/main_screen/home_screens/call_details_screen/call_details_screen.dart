@@ -190,6 +190,10 @@ class _CallDetailsScreenState extends State<CallDetailsScreen> {
                                                     .add(
                                                         AddCallDetailsButtonPressEvent(
                                                             details: data));
+                                                successSnakbar(
+                                                  context,
+                                                  "Form Submitted Sucessfully",
+                                                );
                                               } else {
                                                 warningSnakbar(
                                                   context,

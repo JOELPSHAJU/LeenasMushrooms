@@ -81,6 +81,8 @@ class MyApp extends StatelessWidget {
 
 
 class AuthWrapper extends StatelessWidget {
+  const AuthWrapper({super.key});
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<String?>(
@@ -93,7 +95,7 @@ class AuthWrapper extends StatelessWidget {
          
           return  MainScreen();
         }
-        return  LoginPage();
+        return  const LoginPage();
       },
     );
   }

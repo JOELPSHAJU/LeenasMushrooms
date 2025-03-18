@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:leenas_mushrooms/core/common_widgets/common_appbar.dart';
 import 'package:leenas_mushrooms/core/common_widgets/screen_route_title.dart';
 import 'package:leenas_mushrooms/core/common_widgets/scrolleble_data_table.dart';
-import 'package:leenas_mushrooms/core/constants/font_style.dart';
 
 class IncomeDetailPage extends StatelessWidget {
   const IncomeDetailPage({super.key});

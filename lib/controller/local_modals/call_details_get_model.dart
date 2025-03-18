@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 class CallDetailsGetModel {
   final String id;
