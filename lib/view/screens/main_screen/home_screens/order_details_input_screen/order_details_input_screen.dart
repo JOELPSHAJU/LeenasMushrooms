@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:leenas_mushrooms/controller/local_modals/order_details_add_model.dart';
+import 'package:leenas_mushrooms/model/order_details_add_model.dart';
 import 'package:leenas_mushrooms/core/common_widgets/common_dropdown.dart';
 import 'package:leenas_mushrooms/core/common_widgets/common_input_fields.dart';
+import 'package:leenas_mushrooms/core/common_widgets/custom_button.dart';
+import 'package:leenas_mushrooms/core/common_widgets/custom_validators.dart';
 import 'package:leenas_mushrooms/core/common_widgets/date_picker.dart';
 import 'package:leenas_mushrooms/core/common_widgets/main_button.dart';
 import 'package:leenas_mushrooms/core/common_widgets/screen_route_title.dart';
@@ -119,7 +121,7 @@ class _OrderDetailsInputScreenState extends State<OrderDetailsInputScreen> {
 
   @override
   void initState() {
-    currentDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
+    currentDate = DateFormat('MM/dd/yyyy').format(DateTime.now());
     super.initState();
   }
 
@@ -129,6 +131,18 @@ class _OrderDetailsInputScreenState extends State<OrderDetailsInputScreen> {
     return BlocListener<OrderDetailsBloc, OrderDetailsState>(
         listener: (context, state) {
           if (state is OrderDetailsSucess) {
+            nameController.clear();
+            addressController.clear();
+            pincodeController.clear();
+            orderTypeController = "Select Order Type";
+            phoneNumberController.clear();
+            catalougeController.clear();
+            quantityController.clear();
+            courierDataController.clear();
+            courierReferenceController.clear();
+
+            trackingStatusController.text = "Select tracking status";
+            dateController = currentDate;
             successSnakbar(context, "Order Details added Sucessfully");
             currentDate = DateFormat('MM/dd/yyyy').format(DateTime.now());
           }
@@ -178,51 +192,67 @@ class _OrderDetailsInputScreenState extends State<OrderDetailsInputScreen> {
                               itemCount: inputfields.length + 1,
                               itemBuilder: (context, index) {
                                 if (index == inputfields.length) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      if (addOrderDetailsFormKey.currentState!
-                                          .validate()) {
-                                        OrderDetailsAddModel data =
-                                            OrderDetailsAddModel(
-                                          date: dateController,
-                                          orderType: orderTypeController,
-                                          name: nameController.text,
-                                          address: addressController.text,
-                                          pincode: pincodeController.text,
-                                          phoneNumber:
-                                              phoneNumberController.text,
-                                          catalogue: catalougeController.text,
-                                          quantity: quantityController.text,
-                                          courierData:
-                                              courierDataController.text,
-                                          courierProvider:
-                                              courierDataController.text,
-                                          courierRefNo:
-                                              courierReferenceController.text,
-                                          trackingStatus:
-                                              trackingStatusController.text,
-                                        );
+                                  return BlocBuilder<OrderDetailsBloc,
+                                          OrderDetailsState>(
+                                      builder: (context, state) {
+                                    if (state is OrderDetailsLoading) {
+                                      return Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 20.w),
+                                          child: loadingButton(
+                                              media: size,
+                                              onPressed: () {},
+                                              color: AppColors.black));
+                                    }
+                                    return GestureDetector(
+                                      onTap: () {
+                                        if (addOrderDetailsFormKey.currentState!
+                                            .validate()) {
+                                          OrderDetailsAddModel data =
+                                              OrderDetailsAddModel(
+                                            date: dateController.isNotEmpty
+                                                ? dateController
+                                                : currentDate,
+                                            orderType: orderTypeController,
+                                            name: nameController.text,
+                                            address: addressController.text,
+                                            pincode: pincodeController.text,
+                                            phoneNumber:
+                                                phoneNumberController.text,
+                                            catalogue: catalougeController.text,
+                                            quantity: quantityController.text,
+                                            courierData:
+                                                courierDataController.text,
+                                            courierProvider:
+                                                courierDataController.text,
+                                            courierRefNo:
+                                                courierReferenceController.text,
+                                            trackingStatus:
+                                                trackingStatusController.text,
+                                          );
 
-                                        context.read<OrderDetailsBloc>().add(
-                                            SubmitOrderDetailsEvent(
-                                                model: data));
-                                      } else {
-                                        warningSnakbar(
-                                          context,
-                                          "Please fill the fields",
-                                        );
-                                      }
-                                    },
-                                    child: const Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 20, vertical: 20),
-                                        child: MainButton(
-                                            buttonText: 'Add Details')),
-                                  );
+                                          context.read<OrderDetailsBloc>().add(
+                                              SubmitOrderDetailsEvent(
+                                                  model: data));
+                                        } else {
+                                          warningSnakbar(
+                                            context,
+                                            "Please fill the fields",
+                                          );
+                                        }
+                                      },
+                                      child: const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 20, vertical: 20),
+                                          child: MainButton(
+                                              buttonText: 'Add Details')),
+                                    );
+                                  });
                                 }
 
                                 return inputfields[index].quantity == true
                                     ? TextfieldWithQuantity(
+                                        validator: validateNotNull,
                                         fillColor: inputfields[index].fillColor,
                                         maxlines: inputfields[index].maxlines,
                                         hintText: inputfields[index].hintText,
@@ -250,6 +280,7 @@ class _OrderDetailsInputScreenState extends State<OrderDetailsInputScreen> {
                                                         .options ??
                                                     [])
                                         : CommonTextformField(
+                                            validator: validateNotNull,
                                             fillColor:
                                                 inputfields[index].fillColor,
                                             maxlines:

@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:leenas_mushrooms/controller/local_modals/order_details_add_model.dart';
+import 'package:leenas_mushrooms/model/order_details_add_model.dart';
 import 'package:leenas_mushrooms/services/dataverse_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -27,7 +27,7 @@ class OrderDetailsBloc extends Bloc<OrderDetailsEvent, OrderDetailsState> {
         "pincode": event.model.pincode,
         "phone_number": event.model.phoneNumber,
         "catalogue": event.model.catalogue,
-        "quantity": event.model.quantity,
+        "quantity": int.parse(event.model.quantity),
         "courier_data": event.model.courierData,
         "courier_provider": event.model.courierProvider,
         "courier_ref_no": event.model.courierRefNo,
@@ -36,8 +36,13 @@ class OrderDetailsBloc extends Bloc<OrderDetailsEvent, OrderDetailsState> {
         "payment_status": ""
       };
       final response = await repo.addOrderDetailsApi(credentials: credentials);
-      log(response.toString());
-      emit(OrderDetailsSucess());
+      if (response.status == "success") {
+        log(response.status??"");
+        emit(OrderDetailsSucess());
+      }
+      {
+        emit(OrderDetailsError(message: "response error"));
+      }
     } catch (e) {
       emit(OrderDetailsError(message: e.toString()));
     }

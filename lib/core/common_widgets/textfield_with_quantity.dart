@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:leenas_mushrooms/core/common_widgets/common_input_fields.dart';
+import 'package:leenas_mushrooms/core/common_widgets/custom_validators.dart';
 import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/constants/font_style.dart';
 import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
@@ -11,6 +12,7 @@ class TextfieldWithQuantity extends StatefulWidget {
     required this.hintText,
     required this.fillColor,
     required this.enabled,
+    required this.validator,
     required this.fieldName,
     required this.controller,
   });
@@ -18,6 +20,7 @@ class TextfieldWithQuantity extends StatefulWidget {
   final int maxlines;
   final String hintText;
   final Color fillColor;
+  final validator;
   final bool enabled;
   final String fieldName;
   final TextEditingController controller;
@@ -41,6 +44,7 @@ class _TextfieldWithQuantityState extends State<TextfieldWithQuantity> {
       children: [
         Expanded(
           child: CommonTextformField(
+            validator: validateNotNull,
             maxlines: widget.maxlines,
             fillColor: Colors.white,
             hintText: widget.hintText,

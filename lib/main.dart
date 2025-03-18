@@ -8,11 +8,11 @@ import 'package:leenas_mushrooms/services/dataverse_repository.dart';
 import 'package:leenas_mushrooms/services/rest_client.dart';
 import 'package:leenas_mushrooms/view/bloc/add_call_details/add_call_details_bloc.dart';
 import 'package:leenas_mushrooms/view/bloc/login_bloc/login_bloc.dart';
+import 'package:leenas_mushrooms/view/bloc/order_details/order_details_bloc.dart';
 import 'package:leenas_mushrooms/view/screens/login_screen/login_screen_wrapper.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/main_screen.dart';
 import 'package:leenas_mushrooms/view/screens/splash_screen/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 ValueNotifier<bool> isLoggedIn = ValueNotifier(false);
 void main() async {
@@ -66,19 +66,25 @@ class MyApp extends StatelessWidget {
                 repo: context.read<DataVerseRepository>(),
               ),
             ),
+            BlocProvider(
+              create: (context) => OrderDetailsBloc(
+                repo: context.read<DataVerseRepository>(),
+              ),
+            ),
+            
+
           ],
           child: MaterialApp(
             navigatorKey: navigatorKey,
             debugShowCheckedModeBanner: false,
             scaffoldMessengerKey: scaffoldMessengerKey,
-            home: AuthWrapper(),
+            home: const AuthWrapper(),
           ),
         ),
       ),
     );
   }
 }
-
 
 class AuthWrapper extends StatelessWidget {
   const AuthWrapper({super.key});
@@ -92,10 +98,9 @@ class AuthWrapper extends StatelessWidget {
           return const SplashScreen();
         }
         if (snapshot.hasData && snapshot.data != null) {
-         
-          return  MainScreen();
+          return MainScreen();
         }
-        return  const LoginPage();
+        return const LoginPage();
       },
     );
   }
@@ -105,4 +110,3 @@ class AuthWrapper extends StatelessWidget {
     return prefs.getString('auth_token');
   }
 }
-

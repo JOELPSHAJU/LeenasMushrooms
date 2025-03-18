@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:leenas_mushrooms/core/common_widgets/common_dropdown.dart';
 import 'package:leenas_mushrooms/core/common_widgets/common_input_fields.dart';
+import 'package:leenas_mushrooms/core/common_widgets/custom_validators.dart';
 import 'package:leenas_mushrooms/core/common_widgets/date_picker.dart';
 import 'package:leenas_mushrooms/core/common_widgets/main_button.dart';
 import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/constants/font_style.dart';
 import 'package:leenas_mushrooms/core/constants/size.dart';
 import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
+import 'package:leenas_mushrooms/view/screens/main_screen/home_screens/income_expense_screen/widgets/expense_income_list.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/widgets/inputfield_data_model.dart';
 
 class IncomeExpenseScreen extends StatefulWidget {
@@ -22,6 +24,7 @@ final expenseTypeController = TextEditingController();
 final expenseAmountController = TextEditingController();
 final expenseUserdetailsController = TextEditingController();
 final sourceController = TextEditingController();
+final incomeExpenseFormKey = GlobalKey<FormState>();
 final incomeAmountController = TextEditingController();
 bool isIncome = true;
 String dateController = "";
@@ -226,163 +229,107 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                 ),
                 width: size.width,
                 child: SingleChildScrollView(
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                      CommonDatePicker(
-                         onDateChanged: (value) {
-                              dateController= value;
+                    child: Form(
+                  key: incomeExpenseFormKey,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CommonDatePicker(
+                            onDateChanged: (value) {
+                              dateController = value;
                             },
-                          hint: currentDate,
-                          startDateHeading: 'Date',
-                          selectedItem: dateController),
-                      !isIncome
-                          ? CommonDropdown(
-                             onChanged:(value) {
-                          expenseTypeController.text = value;
-                        },
-                              results: expenseTypeController.text,
-                              fieldName: "Expense Type",
-                              hintText: 'Select expense type',
-                              options: const [
-                                  "ABEL",
-                                  "AGRI LOAN",
-                                  "AUTO CHARGE",
-                                  "BANK CHARGES",
-                                  "CHITTY",
-                                  "CONSTRUCTION",
-                                  "COURIER CHARGES",
-                                  "DONATION",
-                                  "DRIVER ALLOWANCE",
-                                  "DTDC",
-                                  "EMI",
-                                  "FARM EXPENSES",
-                                  "FOOD EXPENSE",
-                                  "GAS",
-                                  "GAS PURCHASE",
-                                  "HEALTH INSURANCE",
-                                  "HOUSE RENT",
-                                  "IMPORT EXPORT LICENSE",
-                                  "INTERNET",
-                                  "JEETHO DIESEL CREDIT BILL",
-                                  "JEETHO EXPENSES",
-                                  "JEETHO PLUS",
-                                  "KSEB DEPOSIT",
-                                  "OFFICE EXPENSES",
-                                  "PETROL-OFFICE",
-                                  "PRINTING EXPENSE",
-                                  "PURCHASE WITHOUT GST",
-                                  "SALARY",
-                                  "SALARY ADVANCES",
-                                  "SALARY-BENGALIS",
-                                  "SALARY IN ADVANCE BENGALIS",
-                                  "SERVICE AND REPAIR",
-                                  "SNACKS",
-                                  "TRANSPORTATION",
-                                  "WAGANOR PETROL",
-                                  "ECP TRADING",
-                                  "NEOPOLY PACK",
-                                  "DIO FUELS TEEKOY",
-                                  "MATHA SURGICALS",
-                                  "PHARM O SALES",
-                                  "K & T AGROW MILLS PVT LTD",
-                                  "ASSOCIATED RUBBER CHEMICALS",
-                                  "BRMSCO",
-                                  "NORTHMAPS GLOBAL ECOSOLUTIONS PVT LTD",
-                                  "AGROWTEIN",
-                                  "KINDLEARC SEVEN",
-                                  "LOGIN IT SOLUTIONS",
-                                  "KAIRALI STOREWALLS",
-                                  "BERITE SOLUTIONS",
-                                  "DIO FUELS",
-                                  "ASIAN GLASS & PLYWOODS",
-                                  "SHALIMAR TRADE LINKS",
-                                  "BIZZARO UNIFORMS",
-                                ])
-                          : const SizedBox(),
-                      isIncome
-                          ? CommonDropdown(
-                             onChanged:(value) {
-                          expenseTypeController.text = value;
-                        },
-                              results: expenseTypeController.text,
-                              fieldName: "Income Type",
-                              hintText: 'Select income type',
-                              options: const [
-                                  " BED",
-                                  "CALCIUM CARBONATE",
-                                  "CLING WRAP FILM",
-                                  "DRY MUSHROOM",
-                                  "EAT IN TRAY",
-                                  "FARM CONSULTANCY",
-                                  "MUSHROOM SPAWN",
-                                  "P P COVER",
-                                  "PELLET SACK",
-                                  "TAPE",
-                                  "TRAINING FEE",
-                                  "VARIETY MUSHROOM SPAWN"
-                                ])
-                          : const SizedBox(),
-                      !isIncome
-                          ? ListView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: incomeInputFields.length + 1,
-                              itemBuilder: (context, index) {
-                                if (index == incomeInputFields.length) {
-                                  return const Padding(
+                            hint: currentDate,
+                            startDateHeading: 'Date',
+                            selectedItem: dateController),
+                        !isIncome
+                            ? CommonDropdown(
+                                onChanged: (value) {
+                                  expenseTypeController.text = value;
+                                },
+                                results: expenseTypeController.text,
+                                fieldName: "Expense Type",
+                                hintText: 'Select expense type',
+                                options: expenseList)
+                            : const SizedBox(),
+                        isIncome
+                            ? CommonDropdown(
+                                onChanged: (value) {
+                                  expenseTypeController.text = value;
+                                },
+                                results: expenseTypeController.text,
+                                fieldName: "Income Type",
+                                hintText: 'Select income type',
+                                options: incomeList)
+                            : const SizedBox(),
+                        !isIncome
+                            ? ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: incomeInputFields.length + 1,
+                                itemBuilder: (context, index) {
+                                  if (index == incomeInputFields.length) {
+                                    return const Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 20, vertical: 20),
+                                        child: MainButton(
+                                            buttonText: 'Add Details'));
+                                  }
+
+                                  return CommonTextformField(
+                                      validator: validateNotNull,
+                                      fillColor:
+                                          incomeInputFields[index].fillColor,
+                                      maxlines:
+                                          incomeInputFields[index].maxlines,
+                                      hintText:
+                                          incomeInputFields[index].hintText,
+                                      enabled:
+                                          incomeInputFields[index].enabled ==
+                                                  true
+                                              ? true
+                                              : false,
+                                      fieldName:
+                                          incomeInputFields[index].fieldName,
+                                      controller:
+                                          incomeInputFields[index].controller);
+                                },
+                              )
+                            : ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: expenseInputFields.length + 1,
+                                itemBuilder: (context, index) {
+                                  if (index == expenseInputFields.length) {
+                                    return const Padding(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 20, vertical: 20),
-                                      child: MainButton(
-                                          buttonText: 'Add Details'));
-                                }
-
-                                return CommonTextformField(
+                                      child:
+                                          MainButton(buttonText: 'Add Details'),
+                                    );
+                                  }
+                                  return CommonTextformField(
+                                    validator: validateNotNull,
                                     fillColor:
-                                        incomeInputFields[index].fillColor,
-                                    maxlines: incomeInputFields[index].maxlines,
-                                    hintText: incomeInputFields[index].hintText,
+                                        expenseInputFields[index].fillColor,
+                                    maxlines:
+                                        expenseInputFields[index].maxlines,
+                                    hintText:
+                                        expenseInputFields[index].hintText,
                                     enabled:
-                                        incomeInputFields[index].enabled == true
+                                        expenseInputFields[index].enabled ==
+                                                true
                                             ? true
                                             : false,
                                     fieldName:
-                                        incomeInputFields[index].fieldName,
+                                        expenseInputFields[index].fieldName,
                                     controller:
-                                        incomeInputFields[index].controller);
-                              },
-                            )
-                          : ListView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: expenseInputFields.length + 1,
-                              itemBuilder: (context, index) {
-                                if (index == expenseInputFields.length) {
-                                  return const Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 20, vertical: 20),
-                                    child:
-                                        MainButton(buttonText: 'Add Details'),
+                                        expenseInputFields[index].controller,
                                   );
-                                }
-                                return CommonTextformField(
-                                  fillColor:
-                                      expenseInputFields[index].fillColor,
-                                  maxlines: expenseInputFields[index].maxlines,
-                                  hintText: expenseInputFields[index].hintText,
-                                  enabled:
-                                      expenseInputFields[index].enabled == true
-                                          ? true
-                                          : false,
-                                  fieldName:
-                                      expenseInputFields[index].fieldName,
-                                  controller:
-                                      expenseInputFields[index].controller,
-                                );
-                              },
-                            ),
-                      h10,
-                    ])))),
+                                },
+                              ),
+                        h10,
+                      ]),
+                )))),
       ]),
     );
   }

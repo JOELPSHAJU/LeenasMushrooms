@@ -1,6 +1,7 @@
 import 'package:leenas_mushrooms/controller/local_modals/call_details_get_model.dart';
-import 'package:leenas_mushrooms/controller/local_modals/order_details_response_model.dart';
+import 'package:leenas_mushrooms/model/order_details_sucess_response.dart';
 import 'package:leenas_mushrooms/model/call_details_add_model_response.dart';
+import 'package:leenas_mushrooms/model/income_addition_response.dart';
 import 'package:leenas_mushrooms/model/login_response.dart';
 import 'package:leenas_mushrooms/services/rest_client.dart';
 
@@ -29,8 +30,8 @@ class DataVerseRepository {
     return _client.getCallDetails();
   }
 
-  // Future<OrderDetailsResponse> addMushroomDetailsApi(
-  //     {required Map<String, dynamic> credentials}) async {
-  //   return await _client.addMushroomHarvestDetails(credentials);
-  // }
+   Future<IncomeAdditionResponse> addIncomeDetaisApi(
+      {required Map<String, dynamic> credentials}) async {
+    return await _client.addIncomeDetails(credentials);
+  }
 }

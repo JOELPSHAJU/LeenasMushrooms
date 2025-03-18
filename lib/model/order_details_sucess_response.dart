@@ -6,7 +6,7 @@ import 'dart:convert';
 
 import 'package:json_annotation/json_annotation.dart';
 
-part 'order_details_response_model.g.dart';
+part 'order_details_sucess_response.g.dart';
 
 OrderDetailsSucessResponse orderDetailsSucessResponseFromJson(String str) =>
     OrderDetailsSucessResponse.fromJson(json.decode(str));
