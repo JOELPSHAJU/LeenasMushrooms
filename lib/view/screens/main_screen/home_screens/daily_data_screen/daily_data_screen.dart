@@ -55,7 +55,7 @@ class DailyDataScreen extends StatelessWidget {
               onTap: () => Navigator.push(
                 context,
                 CupertinoPageRoute(
-                    builder: (context) => const AddSeedDetailsScreen()),
+                    builder: (context) => const AddSedDetailsScreen()),
               ),
               child: MainScreenListTile(
                 size: size,

@@ -5,6 +5,7 @@ import 'package:leenas_mushrooms/model/order_details_sucess_response.dart';
 import 'package:leenas_mushrooms/model/call_details_add_model_response.dart';
 import 'package:leenas_mushrooms/model/income_addition_response.dart';
 import 'package:leenas_mushrooms/model/login_response.dart';
+import 'package:leenas_mushrooms/view/screens/main_screen/home_screens/daily_data_screen/add_seed_details/model/add_seed_details_model.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'rest_client.g.dart';
