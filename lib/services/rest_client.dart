@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:leenas_mushrooms/api_services/base_url.dart';
 import 'package:leenas_mushrooms/controller/local_modals/call_details_get_model.dart';
-import 'package:leenas_mushrooms/model/order_details_sucess_response.dart';
 import 'package:leenas_mushrooms/model/call_details_add_model_response.dart';
 import 'package:leenas_mushrooms/model/income_addition_response.dart';
 import 'package:leenas_mushrooms/model/login_response.dart';
+import 'package:leenas_mushrooms/model/order_details_sucess_response.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/home_screens/daily_data_screen/add_seed_details/model/add_seed_details_model.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -32,5 +32,6 @@ abstract class RestClient {
   Future<IncomeAdditionResponse> addIncomeDetails(
       @Body() Map<String, dynamic> body);
 
- 
+  @POST('/seeddetails/addSeeddetails')
+  Future<AddSeedDetailsModel> addSeeddetails(@Body() Map<String, dynamic> body);
 }
