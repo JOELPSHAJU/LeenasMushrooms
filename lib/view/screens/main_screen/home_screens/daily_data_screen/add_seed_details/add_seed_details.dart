@@ -15,7 +15,7 @@ import 'package:leenas_mushrooms/core/common_widgets/textfield_with_quantity.dar
 import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
 import 'package:leenas_mushrooms/services/dataverse_repository.dart';
-import 'package:leenas_mushrooms/view/bloc/add_sed_details/add_sed_details_bloc.dart';
+import 'package:leenas_mushrooms/view/bloc/seed_details/seed_details_bloc.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/widgets/inputfield_data_model.dart';
 
 class AddSedDetailsScreen extends StatefulWidget {
@@ -91,8 +91,8 @@ class _AddSedDetailsScreenState extends State<AddSedDetailsScreen> {
     );
 
     context
-        .read<AddSedDetailsBloc>()
-        .add(AddSedDetailsButtonPressEvent(details: details));
+        .read<SeedDetailsBloc>()
+        .add(SeedDetailsButtonPressEvent(details: details));
   }
 
   @override
@@ -101,13 +101,13 @@ class _AddSedDetailsScreenState extends State<AddSedDetailsScreen> {
 
     return BlocProvider(
       create: (context) =>
-          AddSedDetailsBloc(repo: context.read<DataVerseRepository>()),
+          SeedDetailsBloc(repo: context.read<DataVerseRepository>()),
       child: Scaffold(
         appBar: const CommonAppBar(iconNeeded: false),
         backgroundColor: AppColors.cardcolor,
-        body: BlocConsumer<AddSedDetailsBloc, AddSedDetailsState>(
+        body: BlocConsumer<SeedDetailsBloc, SeedDetailsState>(
           listener: (context, state) {
-            if (state is AddSedDetailsSuccess) {
+            if (state is SeedDetailsSuccess) {
               successSnakbar(context, "Details added successfully");
               // Reset form fields
               quantityController.clear();
@@ -119,7 +119,7 @@ class _AddSedDetailsScreenState extends State<AddSedDetailsScreen> {
                 timeController = 'Morning';
               });
               Navigator.pop(context); // Navigate back on success
-            } else if (state is AddSedDetailsFailure) {
+            } else if (state is SeedDetailsFailure) {
               failedSnakbar(context, "Failed to add details: ${state.message}");
             }
           },
@@ -175,10 +175,10 @@ class _AddSedDetailsScreenState extends State<AddSedDetailsScreen> {
                                 return Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 20, vertical: 20),
-                                  child: BlocBuilder<AddSedDetailsBloc,
-                                      AddSedDetailsState>(
+                                  child: BlocBuilder<SeedDetailsBloc,
+                                      SeedDetailsState>(
                                     builder: (context, state) {
-                                      if (state is AddSedDetailsLoading) {
+                                      if (state is SeedDetailsLoading) {
                                         return loadingButton(
                                             media: size,
                                             onPressed: () {},

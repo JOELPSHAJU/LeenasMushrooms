@@ -1,15 +1,13 @@
-class IncomeDetailModel {
+class ExpenseDetailModel {
   final String date;
   final String userDetails;
-  final String source;
-  final String incomeType;
+  final String expenseType;
   final int amount;
 
-  IncomeDetailModel({
+  ExpenseDetailModel({
     required this.date,
     required this.userDetails,
-    required this.source,
-    required this.incomeType,
+    required this.expenseType,
     required this.amount,
   });
 }

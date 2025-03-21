@@ -14,7 +14,7 @@ import 'package:leenas_mushrooms/core/common_widgets/snakbars.dart';
 import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/constants/size.dart';
 import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
-import 'package:leenas_mushrooms/view/bloc/add_call_details/add_call_details_bloc.dart';
+import 'package:leenas_mushrooms/view/bloc/call_details/call_details_bloc.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/main_screen.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/widgets/inputfield_data_model.dart';
 
@@ -82,9 +82,9 @@ class _CallDetailsScreenState extends State<CallDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return BlocListener<AddCallDetailsBloc, AddCallDetailsState>(
+    return BlocListener<CallDetailsBloc, CallDetailsState>(
       listener: (context, state) {
-        if (state is AddCallDetailsSuccess) {
+        if (state is CallDetailsSuccess) {
           successSnakbar(context, "Call Details added Sucessfully");
           currentDate = DateFormat('MM/dd/yyyy').format(DateTime.now());
           selectedCustomerType = '';
@@ -149,10 +149,10 @@ class _CallDetailsScreenState extends State<CallDetailsScreen> {
                                 return Column(
                                   children: [
                                     h20,
-                                    BlocBuilder<AddCallDetailsBloc,
-                                            AddCallDetailsState>(
+                                    BlocBuilder<CallDetailsBloc,
+                                            CallDetailsState>(
                                         builder: (context, state) {
-                                      if (state is AddCallDetailsLoading) {
+                                      if (state is CallDetailsLoading) {
                                         return Padding(
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: 20.w),
@@ -169,7 +169,7 @@ class _CallDetailsScreenState extends State<CallDetailsScreen> {
                                               if (addCallDetailsFormKey
                                                   .currentState!
                                                   .validate()) {
-                                                final data = CallDetailsPostModel(
+                                                final data = CallDetailsModel(
                                                     date: dateController
                                                             .isNotEmpty
                                                         ? dateController
@@ -185,11 +185,9 @@ class _CallDetailsScreenState extends State<CallDetailsScreen> {
                                                     currentStatus:
                                                         currentStatusController
                                                             .text);
-                                                context
-                                                    .read<AddCallDetailsBloc>()
-                                                    .add(
-                                                        AddCallDetailsButtonPressEvent(
-                                                            details: data));
+                                                context.read<CallDetailsBloc>().add(
+                                                    CallDetailsButtonPressEvent(
+                                                        details: data));
                                                 successSnakbar(
                                                   context,
                                                   "Form Submitted Sucessfully",

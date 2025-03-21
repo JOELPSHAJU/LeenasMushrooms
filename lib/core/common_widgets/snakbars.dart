@@ -3,7 +3,10 @@ import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/constants/image_path_provider.dart';
 import 'package:leenas_mushrooms/core/utils/common_util.dart';
 
-void customSnackbar(context, message, ) {
+void customSnackbar(
+  context,
+  message,
+) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       behavior: SnackBarBehavior.floating,
@@ -24,12 +27,15 @@ void customSnackbar(context, message, ) {
   );
 }
 
-void successSnakbar(context, message,) {
+void successSnakbar(
+  context,
+  message,
+) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       behavior: SnackBarBehavior.floating,
       showCloseIcon: true,
-      elevation: 3,
+      elevation: 0,
       content: Column(
         children: [
           loadAssetPic(
@@ -62,12 +68,15 @@ void successSnakbar(context, message,) {
   );
 }
 
-void failedSnakbar(context, message, ) {
+void failedSnakbar(
+  context,
+  message,
+) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       behavior: SnackBarBehavior.floating,
       showCloseIcon: true,
-      elevation: 3,
+      elevation: 0,
       content: Column(
         children: [
           loadAssetPic(
@@ -105,7 +114,7 @@ void warningSnakbar(context, message) {
     SnackBar(
       behavior: SnackBarBehavior.floating,
       showCloseIcon: true,
-      elevation: 7,
+      elevation: 0,
       content: Column(
         children: [
           loadAssetPic(

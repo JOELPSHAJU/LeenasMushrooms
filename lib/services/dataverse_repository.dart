@@ -1,8 +1,10 @@
-import 'package:leenas_mushrooms/controller/local_modals/call_details_get_model.dart';
-import 'package:leenas_mushrooms/model/order_details_sucess_response.dart';
 import 'package:leenas_mushrooms/model/call_details_add_model_response.dart';
+import 'package:leenas_mushrooms/model/expense_addition_response.dart';
+import 'package:leenas_mushrooms/model/get_call_details_response.dart';
+import 'package:leenas_mushrooms/model/get_income_details_response.dart';
 import 'package:leenas_mushrooms/model/income_addition_response.dart';
 import 'package:leenas_mushrooms/model/login_response.dart';
+import 'package:leenas_mushrooms/model/order_details_sucess_response.dart';
 import 'package:leenas_mushrooms/services/rest_client.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/home_screens/daily_data_screen/add_seed_details/model/add_seed_details_model.dart';
 
@@ -27,21 +29,26 @@ class DataVerseRepository {
     return await _client.addOrderDetails(credentials);
   }
 
-  Future<CallDetailsGetModel> getCallDetailsApi() async {
-    return _client.getCallDetails();
+ Future<GetCallDetailsResponse> getCallDetailsApi({required int page}) async {
+    return _client.getCallDetails(page, 10); 
   }
-
-  // Future<CallDetailsGetModel> addSeedDetailsApi() async {
-  //   return _client.addSeeddetails();
-  // }
 
   Future<AddSeedDetailsModel> addSeedDetailsApi(
       {required Map<String, dynamic> credentials}) async {
     return await _client.addSeeddetails(credentials);
   }
 
-  // Future<OrderDetailsResponse> addMushroomDetailsApi(
-  //     {required Map<String, dynamic> credentials}) async {
-  //   return await _client.addMushroomHarvestDetails(credentials);
-  // }
+  Future<IncomeAdditionResponse> addIncomeDetailsApi(
+      {required Map<String, dynamic> credentials}) async {
+    return await _client.addIncomeDetails(credentials);
+  }
+
+  Future<ExpenseAdditionResponse> addExpenseDetailsApi(
+      {required Map<String, dynamic> credentials}) async {
+    return await _client.addExpenseDetails(credentials);
+  }
+   Future<GetIncomeDetailsResponse> getIncomeDetailsApi({required int page}) async {
+    return _client.getIncomeDetails(page, 10); 
+  }
+
 }

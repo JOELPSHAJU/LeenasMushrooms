@@ -1,11 +1,11 @@
-class IncomeDetailModel {
+class IncomeDetailsModel {
   final String date;
   final String userDetails;
   final String source;
   final String incomeType;
-  final int amount;
+  final String amount;
 
-  IncomeDetailModel({
+  IncomeDetailsModel({
     required this.date,
     required this.userDetails,
     required this.source,

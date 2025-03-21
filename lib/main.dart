@@ -6,7 +6,8 @@ import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
 import 'package:leenas_mushrooms/services/client/dio_client.dart';
 import 'package:leenas_mushrooms/services/dataverse_repository.dart';
 import 'package:leenas_mushrooms/services/rest_client.dart';
-import 'package:leenas_mushrooms/view/bloc/add_call_details/add_call_details_bloc.dart';
+import 'package:leenas_mushrooms/view/bloc/call_details/call_details_bloc.dart';
+import 'package:leenas_mushrooms/view/bloc/income_expense/income_expense_bloc.dart';
 import 'package:leenas_mushrooms/view/bloc/login_bloc/login_bloc.dart';
 import 'package:leenas_mushrooms/view/bloc/order_details/order_details_bloc.dart';
 import 'package:leenas_mushrooms/view/screens/login_screen/login_screen_wrapper.dart';
@@ -62,7 +63,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
             BlocProvider(
-              create: (context) => AddCallDetailsBloc(
+              create: (context) => CallDetailsBloc(
                 repo: context.read<DataVerseRepository>(),
               ),
             ),
@@ -71,8 +72,11 @@ class MyApp extends StatelessWidget {
                 repo: context.read<DataVerseRepository>(),
               ),
             ),
-            
-
+            BlocProvider(
+              create: (context) => IncomeExpenseBloc(
+                repo: context.read<DataVerseRepository>(),
+              ),
+            ),
           ],
           child: MaterialApp(
             navigatorKey: navigatorKey,

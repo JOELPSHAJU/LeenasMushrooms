@@ -14,6 +14,7 @@ class CommonTextformField extends StatefulWidget {
     required this.enabled,
     this.prefixText,
     this.dependentData,
+    this.type,
     this.suffix,
     this.isRemarkNeed,
     this.sufixOntap,
@@ -38,7 +39,7 @@ class CommonTextformField extends StatefulWidget {
   final validator;
   final String fieldName;
   final Widget? prefixwidget;
-
+  final TextInputType? type;
   final VoidCallback? sufixOntap;
   final TextEditingController controller;
   final VoidCallback? prefixOntap;
@@ -81,6 +82,7 @@ class _CommonTextformFieldState extends State<CommonTextformField> {
           TextFormField(
             initialValue: widget.dependentData,
             enabled: widget.enabled,
+            keyboardType:widget. type,
             validator: widget.isRemarkNeed == false ? null : widget.validator,
             style: AppFonts.getAppFont(
               color: AppColors.textfieldTextColor,

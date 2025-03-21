@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:leenas_mushrooms/api_services/base_url.dart';
-import 'package:leenas_mushrooms/controller/local_modals/call_details_get_model.dart';
 import 'package:leenas_mushrooms/model/call_details_add_model_response.dart';
+import 'package:leenas_mushrooms/model/expense_addition_response.dart';
+import 'package:leenas_mushrooms/model/get_call_details_response.dart';
+import 'package:leenas_mushrooms/model/get_income_details_response.dart';
 import 'package:leenas_mushrooms/model/income_addition_response.dart';
 import 'package:leenas_mushrooms/model/login_response.dart';
 import 'package:leenas_mushrooms/model/order_details_sucess_response.dart';
@@ -25,8 +27,11 @@ abstract class RestClient {
   Future<OrderDetailsSucessResponse> addOrderDetails(
       @Body() Map<String, dynamic> body);
 
-  @GET('/calldetails/getCalldetails?page=1&limit=10')
-  Future<CallDetailsGetModel> getCallDetails();
+  @GET('/calldetails/getCalldetails')
+  Future<GetCallDetailsResponse> getCallDetails(
+    @Query("page") int page,
+    @Query("limit") int limit,
+  );
 
   @POST("/incomedetails/addIncomedetails")
   Future<IncomeAdditionResponse> addIncomeDetails(
@@ -34,4 +39,14 @@ abstract class RestClient {
 
   @POST('/seeddetails/addSeeddetails')
   Future<AddSeedDetailsModel> addSeeddetails(@Body() Map<String, dynamic> body);
+
+  @POST('/expensedetails/addExpensedetails')
+  Future<ExpenseAdditionResponse> addExpenseDetails(
+      @Body() Map<String, dynamic> body);
+
+  @GET('/incomedetails/getiIncomedetails?page=1&limit=10')
+  Future<GetIncomeDetailsResponse> getIncomeDetails(
+    @Query("page") int page,
+    @Query("limit") int limit,
+  );
 }

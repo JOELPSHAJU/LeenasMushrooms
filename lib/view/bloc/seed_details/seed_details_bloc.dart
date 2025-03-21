@@ -5,18 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:leenas_mushrooms/controller/local_modals/sed_details_post_post_model.dart';
 import 'package:leenas_mushrooms/services/dataverse_repository.dart';
 
-part 'add_sed_details_event.dart';
-part 'add_sed_details_state.dart';
+part 'seed_details_event.dart';
+part 'seed_details_state.dart';
 
-class AddSedDetailsBloc extends Bloc<AddSedDetailsEvent, AddSedDetailsState> {
+class SeedDetailsBloc extends Bloc<SeedDetailsEvent, SeedDetailsState> {
   final DataVerseRepository repo;
-  AddSedDetailsBloc({required this.repo}) : super(AddSedDetailsInitial()) {
-    on<AddSedDetailsButtonPressEvent>(_onAddSedDetailsButtonPressEvent);
+  SeedDetailsBloc({required this.repo}) : super(SeedDetailsInitial()) {
+    on<SeedDetailsButtonPressEvent>(_onAddSedDetailsButtonPressEvent);
   }
 
-  void _onAddSedDetailsButtonPressEvent(AddSedDetailsButtonPressEvent event,
-      Emitter<AddSedDetailsState> emit) async {
-    emit(AddSedDetailsLoading());
+  void _onAddSedDetailsButtonPressEvent(
+      SeedDetailsButtonPressEvent event, Emitter<SeedDetailsState> emit) async {
+    emit(SeedDetailsLoading());
 
     try {
       final credentials = {
@@ -30,10 +30,11 @@ class AddSedDetailsBloc extends Bloc<AddSedDetailsEvent, AddSedDetailsState> {
       final response = await repo.addSeedDetailsApi(credentials: credentials);
       log(response.toString());
       if (response.status == "success") {
-        emit(AddSedDetailsSuccess());
+        emit(SeedDetailsSuccess());
       }
     } catch (e) {
-      emit(AddSedDetailsFailure(message: e.toString()));
+      emit(SeedDetailsFailure(message: e.toString()));
     }
   }
+  
 }
