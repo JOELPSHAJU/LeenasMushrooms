@@ -6,7 +6,6 @@ import 'package:leenas_mushrooms/core/common_widgets/common_appbar.dart';
 import 'package:leenas_mushrooms/core/common_widgets/common_dropdown.dart';
 import 'package:leenas_mushrooms/core/common_widgets/common_input_fields.dart';
 import 'package:leenas_mushrooms/core/common_widgets/custom_button.dart';
-import 'package:leenas_mushrooms/core/common_widgets/custom_validators.dart';
 import 'package:leenas_mushrooms/core/common_widgets/date_picker.dart';
 import 'package:leenas_mushrooms/core/common_widgets/main_button.dart';
 import 'package:leenas_mushrooms/core/common_widgets/screen_route_title.dart';
