@@ -1,3 +1,5 @@
+import 'package:leenas_mushrooms/model/add_bed_details_model.dart';
+import 'package:leenas_mushrooms/model/add_mushroom_details_model.dart';
 import 'package:leenas_mushrooms/model/call_details_add_model_response.dart';
 import 'package:leenas_mushrooms/model/expense_addition_response.dart';
 import 'package:leenas_mushrooms/model/get_call_details_response.dart';
@@ -29,8 +31,8 @@ class DataVerseRepository {
     return await _client.addOrderDetails(credentials);
   }
 
- Future<GetCallDetailsResponse> getCallDetailsApi({required int page}) async {
-    return _client.getCallDetails(page, 10); 
+  Future<GetCallDetailsResponse> getCallDetailsApi({required int page}) async {
+    return _client.getCallDetails(page, 10);
   }
 
   Future<AddSeedDetailsModel> addSeedDetailsApi(
@@ -47,8 +49,19 @@ class DataVerseRepository {
       {required Map<String, dynamic> credentials}) async {
     return await _client.addExpenseDetails(credentials);
   }
-   Future<GetIncomeDetailsResponse> getIncomeDetailsApi({required int page}) async {
-    return _client.getIncomeDetails(page, 10); 
+
+  Future<GetIncomeDetailsResponse> getIncomeDetailsApi(
+      {required int page}) async {
+    return _client.getIncomeDetails(page, 10);
   }
 
+  Future<AddBedDetailsModel> addBedDetailsApi(
+      {required Map<String, dynamic> credentials}) async {
+    return await _client.addBedeDetails(credentials);
+  }
+
+  Future<AddMushroomDetailsModel> addMushroomDetailsApi(
+      {required Map<String, dynamic> credentials}) async {
+    return await _client.addMushroomeDetails(credentials);
+  }
 }

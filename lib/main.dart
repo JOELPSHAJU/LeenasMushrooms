@@ -6,6 +6,7 @@ import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
 import 'package:leenas_mushrooms/services/client/dio_client.dart';
 import 'package:leenas_mushrooms/services/dataverse_repository.dart';
 import 'package:leenas_mushrooms/services/rest_client.dart';
+import 'package:leenas_mushrooms/view/bloc/add_bed_details/add_bed_details_bloc.dart';
 import 'package:leenas_mushrooms/view/bloc/call_details/call_details_bloc.dart';
 import 'package:leenas_mushrooms/view/bloc/income_expense/income_expense_bloc.dart';
 import 'package:leenas_mushrooms/view/bloc/login_bloc/login_bloc.dart';
@@ -74,6 +75,11 @@ class MyApp extends StatelessWidget {
             ),
             BlocProvider(
               create: (context) => IncomeExpenseBloc(
+                repo: context.read<DataVerseRepository>(),
+              ),
+            ),
+            BlocProvider(
+              create: (context) => AddBedDetailsBloc(
                 repo: context.read<DataVerseRepository>(),
               ),
             ),
