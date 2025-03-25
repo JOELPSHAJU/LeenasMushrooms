@@ -8,3 +8,8 @@ final class SubmitOrderDetailsEvent extends OrderDetailsEvent{
 
   SubmitOrderDetailsEvent({required this.model});
 }
+
+final class GetOrderDetailsEvent extends OrderDetailsEvent {
+  final int page;
+  GetOrderDetailsEvent({required this.page});
+}

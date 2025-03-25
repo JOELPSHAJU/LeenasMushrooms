@@ -1,58 +1,63 @@
 part of 'income_expense_bloc.dart';
 
 @immutable
-
-
 sealed class IncomeExpenseState {}
+
 class IncomeExpenseInitial extends IncomeExpenseState {}
 
 class IncomeExpenseLoadingState extends IncomeExpenseState {}
 
 class IncomeExpenseAddSuccessState extends IncomeExpenseState {
   final String? message;
-
-   IncomeExpenseAddSuccessState({this.message});
-
-  @override
-  List<Object> get props => [message ?? ''];
+  IncomeExpenseAddSuccessState({this.message});
 }
 
 class IncomeExpenseErrorState extends IncomeExpenseState {
   final String message;
-
-   IncomeExpenseErrorState({required this.message});
-
-  @override
-  List<Object> get props => [message];
+  IncomeExpenseErrorState({required this.message});
 }
 
-class IncomeExpenseFetchSuccess extends IncomeExpenseState {
-  final List<IncomeDetailsModel> allIncomeDetails;
+class IncomeFetchSuccess extends IncomeExpenseState {
   final List<IncomeDetailsModel> incomeDetails;
+
   final bool hasReachedMax;
   final int currentPage;
 
-   IncomeExpenseFetchSuccess({
-    required this.allIncomeDetails,
+  IncomeFetchSuccess({
     required this.incomeDetails,
     required this.hasReachedMax,
     required this.currentPage,
   });
-
-  @override
-  List<Object> get props =>
-      [allIncomeDetails, incomeDetails, hasReachedMax, currentPage];
 }
 
-class IncomeExpenseLoadingMore extends IncomeExpenseState {
+class ExpenseFetchSuccess extends IncomeExpenseState {
+  final List<ExpenseDetailModel> expenseDetails;
+  final bool hasReachedMax;
+  final int currentPage;
+
+  ExpenseFetchSuccess({
+    required this.expenseDetails,
+    required this.hasReachedMax,
+    required this.currentPage,
+  });
+}
+
+class IncomeLoadingMore extends IncomeExpenseState {
   final List<IncomeDetailsModel> incomeDetails;
   final int currentPage;
 
-   IncomeExpenseLoadingMore({
+  IncomeLoadingMore({
     required this.incomeDetails,
     required this.currentPage,
   });
+}
 
-  @override
-  List<Object> get props => [incomeDetails, currentPage];
+class ExpenseLoadingMore extends IncomeExpenseState {
+  final List<ExpenseDetailModel> expenseDetails;
+  final int currentPage;
+
+  ExpenseLoadingMore({
+    required this.expenseDetails,
+    required this.currentPage,
+  });
 }

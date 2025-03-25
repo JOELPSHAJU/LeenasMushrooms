@@ -3,7 +3,7 @@ class IncomeDetailsModel {
   final String userDetails;
   final String source;
   final String incomeType;
-  final String amount;
+  final String amount; // Using String for simplicity in DataTable
 
   IncomeDetailsModel({
     required this.date,
@@ -12,4 +12,10 @@ class IncomeDetailsModel {
     required this.incomeType,
     required this.amount,
   });
+
+  @override
+  String toString() =>
+      'IncomeDetailsModel(date: $date, incomeType: $incomeType, amount: $amount)';
 }
+
+

@@ -18,13 +18,13 @@ class IncomeExpenseBloc extends Bloc<IncomeExpenseEvent, IncomeExpenseState> {
     on<AddIncomeDetailsButtonPressEvent>(_onAddIncomeDetailsButtonPressEvent);
     on<AddExpenseDetailsButtonPressEvent>(_onAddExpenseDetailsButtonPressEvent);
     on<GetIncomeDetailsEvent>(_onGetIncomeDetailsEvent);
+    on<GetExpenseDetailsEvent>(_onGetExpenseDetailsEvent);
   }
 
   void _onAddIncomeDetailsButtonPressEvent(
       AddIncomeDetailsButtonPressEvent event,
       Emitter<IncomeExpenseState> emit) async {
     emit(IncomeExpenseLoadingState());
-
     try {
       final credentials = {
         "date": event.details.date,
@@ -35,7 +35,7 @@ class IncomeExpenseBloc extends Bloc<IncomeExpenseEvent, IncomeExpenseState> {
       };
       final response = await repo.addIncomeDetailsApi(credentials: credentials);
       log(response.toString());
-      emit( IncomeExpenseAddSuccessState(
+      emit(IncomeExpenseAddSuccessState(
           message: 'Income Details added Successfully!'));
     } catch (e) {
       emit(IncomeExpenseErrorState(message: e.toString()));
@@ -46,7 +46,6 @@ class IncomeExpenseBloc extends Bloc<IncomeExpenseEvent, IncomeExpenseState> {
       AddExpenseDetailsButtonPressEvent event,
       Emitter<IncomeExpenseState> emit) async {
     emit(IncomeExpenseLoadingState());
-
     try {
       final credentials = {
         "date": event.details.date,
@@ -57,7 +56,7 @@ class IncomeExpenseBloc extends Bloc<IncomeExpenseEvent, IncomeExpenseState> {
       final response =
           await repo.addExpenseDetailsApi(credentials: credentials);
       log(response.toString());
-      emit( IncomeExpenseAddSuccessState(
+      emit(IncomeExpenseAddSuccessState(
           message: 'Expense Details added Successfully!'));
     } catch (e) {
       emit(IncomeExpenseErrorState(message: e.toString()));
@@ -66,18 +65,21 @@ class IncomeExpenseBloc extends Bloc<IncomeExpenseEvent, IncomeExpenseState> {
 
   void _onGetIncomeDetailsEvent(
       GetIncomeDetailsEvent event, Emitter<IncomeExpenseState> emit) async {
+    log('Fetching income details for page: ${event.page}');
+
+    // Initial load or refresh
     if (event.page == 1) {
       emit(IncomeExpenseLoadingState());
-    } else if (state is IncomeExpenseFetchSuccess) {
-      final currentState = state as IncomeExpenseFetchSuccess;
-      emit(IncomeExpenseLoadingMore(
-        incomeDetails: currentState.incomeDetails,
-        currentPage: currentState.currentPage,
-      ));
+    } else if (state is IncomeFetchSuccess) {
+      final currentState = state as IncomeFetchSuccess;
+      emit(IncomeLoadingMore(
+          incomeDetails: currentState.incomeDetails,
+          currentPage: currentState.currentPage));
     }
 
     try {
       final response = await repo.getIncomeDetailsApi(page: event.page);
+      log('API Response: ${response.toString()}');
 
       if (response.status == "success" && response.data != null) {
         List<IncomeDetailsModel> newIncomeDetails = response.data!.map((datum) {
@@ -85,38 +87,104 @@ class IncomeExpenseBloc extends Bloc<IncomeExpenseEvent, IncomeExpenseState> {
           String formattedDate = DateFormat('MMMM d, y').format(dateTime);
           return IncomeDetailsModel(
             date: formattedDate,
-            userDetails: datum.userDetails ?? '',
-            source: datum.source ?? '',
-            incomeType: datum.incomeType ?? '',
+            userDetails: datum.userDetails ?? "",
+            source: datum.source ?? "",
+            incomeType: datum.incomeType ?? "",
             amount: datum.amount.toString(),
           );
         }).toList();
 
-        bool hasReachedMax =
-            event.page >= (response.pagination?.totalPages ?? 1);
+        log('Fetched items: ${newIncomeDetails.length}');
+
+        // Determine if we've reached the end of pagination
+        const int limit = 10; // Matches the limit in the API call
+        bool hasReachedMax = newIncomeDetails.length < limit ||
+            (response.pagination?.totalPages != null &&
+                event.page >= response.pagination!.totalPages!);
 
         if (event.page == 1) {
-          emit(IncomeExpenseFetchSuccess(
-            allIncomeDetails: newIncomeDetails,
+          emit(IncomeFetchSuccess(
             incomeDetails: newIncomeDetails,
             hasReachedMax: hasReachedMax,
             currentPage: event.page,
           ));
-        } else if (state is IncomeExpenseLoadingMore) {
-          final currentState = state as IncomeExpenseLoadingMore;
-          emit(IncomeExpenseFetchSuccess(
-            allIncomeDetails: currentState.incomeDetails + newIncomeDetails,
-            incomeDetails: List.from(currentState.incomeDetails)
-              ..addAll(newIncomeDetails),
+        } else if (state is IncomeLoadingMore) {
+          final currentState = state as IncomeLoadingMore;
+          emit(IncomeFetchSuccess(
+            incomeDetails: currentState.incomeDetails + newIncomeDetails,
             hasReachedMax: hasReachedMax,
             currentPage: event.page,
           ));
         }
       } else {
-        emit( IncomeExpenseErrorState(
-            message: "Failed to fetch income details"));
+        log('API returned no success or no data');
+        emit(
+            IncomeExpenseErrorState(message: "Failed to fetch income details"));
       }
     } catch (e) {
+      log('Error fetching income details: $e');
+      emit(IncomeExpenseErrorState(message: e.toString()));
+    }
+  }
+
+  void _onGetExpenseDetailsEvent(
+      GetExpenseDetailsEvent event, Emitter<IncomeExpenseState> emit) async {
+    log('Fetching income details for page: ${event.page}');
+
+    // Initial load or refresh
+    if (event.page == 1) {
+      emit(IncomeExpenseLoadingState());
+    } else if (state is ExpenseFetchSuccess) {
+      final currentState = state as ExpenseFetchSuccess;
+      emit(ExpenseLoadingMore(
+          expenseDetails: currentState.expenseDetails,
+          currentPage: currentState.currentPage));
+    }
+
+    try {
+      final response = await repo.getExpenseDetailsApi(page: event.page);
+      log('API Response: ${response.toString()}');
+
+      if (response.status == "success" && response.data != null) {
+        List<ExpenseDetailModel> newExpenseDetail = response.data!.map((datum) {
+          DateTime dateTime = datum.date!;
+          String formattedDate = DateFormat('MMMM d, y').format(dateTime);
+          return ExpenseDetailModel(
+              date: formattedDate,
+              userDetails: datum.userDetails ?? "",
+              expenseType: datum.expenseType ?? "",
+              amount: datum.amount!.toInt());
+        }).toList();
+
+        log('Fetched items: ${newExpenseDetail.length}');
+
+        // Determine if we've reached the end of pagination
+        const int limit = 10; // Matches the limit in the API call
+        bool hasReachedMax = newExpenseDetail.length < limit ||
+            (response.pagination?.totalPages != null &&
+                event.page >= response.pagination!.totalPages!);
+
+        if (event.page == 1) {
+          emit(ExpenseFetchSuccess(
+            expenseDetails: newExpenseDetail,
+            hasReachedMax: hasReachedMax,
+            currentPage: event.page,
+          ));
+        } else if (state is ExpenseLoadingMore) {
+          final currentState = state as ExpenseLoadingMore;
+          emit(ExpenseFetchSuccess(
+            expenseDetails: currentState.expenseDetails + newExpenseDetail,
+            hasReachedMax: hasReachedMax,
+            currentPage: event.page,
+          ));
+        }
+      } else {
+        log('API returned no success or no data');
+        emit(
+            IncomeExpenseErrorState(message: "Failed to fetch income details"));
+      }
+    } catch (e) {
+      log('Error fetching income details: $e');
       emit(IncomeExpenseErrorState(message: e.toString()));
     }
   }

@@ -1,7 +1,10 @@
 import 'package:leenas_mushrooms/model/call_details_add_model_response.dart';
 import 'package:leenas_mushrooms/model/expense_addition_response.dart';
 import 'package:leenas_mushrooms/model/get_call_details_response.dart';
+import 'package:leenas_mushrooms/model/get_expense_details_response.dart';
 import 'package:leenas_mushrooms/model/get_income_details_response.dart';
+import 'package:leenas_mushrooms/model/get_mushroom_details_response.dart';
+import 'package:leenas_mushrooms/model/get_order_details_response.dart';
 import 'package:leenas_mushrooms/model/income_addition_response.dart';
 import 'package:leenas_mushrooms/model/login_response.dart';
 import 'package:leenas_mushrooms/model/order_details_sucess_response.dart';
@@ -29,8 +32,8 @@ class DataVerseRepository {
     return await _client.addOrderDetails(credentials);
   }
 
- Future<GetCallDetailsResponse> getCallDetailsApi({required int page}) async {
-    return _client.getCallDetails(page, 10); 
+  Future<GetCallDetailsResponse> getCallDetailsApi({required int page}) async {
+    return _client.getCallDetails(page, 10);
   }
 
   Future<AddSeedDetailsModel> addSeedDetailsApi(
@@ -47,8 +50,24 @@ class DataVerseRepository {
       {required Map<String, dynamic> credentials}) async {
     return await _client.addExpenseDetails(credentials);
   }
-   Future<GetIncomeDetailsResponse> getIncomeDetailsApi({required int page}) async {
-    return _client.getIncomeDetails(page, 10); 
+
+  Future<GetIncomeDetailsResponse> getIncomeDetailsApi(
+      {required int page}) async {
+    return _client.getIncomeDetails(page, 10);
   }
 
+  Future<GetExpenseDetailsResponse> getExpenseDetailsApi(
+      {required int page}) async {
+    return _client.getExpenseDetails(page, 10);
+  }
+
+  Future<GetOrderDetailsResponse> getOrderDetailsApi(
+      {required int page}) async {
+    return _client.getOrderDetails(page, 10);
+  }
+
+  Future<GetMushroomDetailsResponse> getMushroomDetailsApi(
+      {required int page}) async {
+    return _client.getMushroomDetails(page, 10);
+  }
 }

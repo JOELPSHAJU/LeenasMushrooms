@@ -87,7 +87,7 @@ class CallDetailsBloc extends Bloc<CallDetailsEvent, CallDetailsState> {
             allCallDetails: currentState.callDetails + newCallDetails,
             callDetails: List.from(currentState.callDetails)
               ..addAll(newCallDetails),
-            hasReachedMax: hasReachedMax,
+            hasReachedMax: hasReachedMax, 
             currentPage: event.page,
           ));
         }

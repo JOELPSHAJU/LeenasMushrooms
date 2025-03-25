@@ -12,7 +12,7 @@ import 'package:leenas_mushrooms/view/screens/expense_detail_page/expense_detail
 import 'package:leenas_mushrooms/view/screens/income_detail_page/income_detail_page.dart';
 import 'package:leenas_mushrooms/view/screens/login_screen/login_screen_wrapper.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/home_screens/order_details_screen/order_details_screen.dart';
-import 'package:leenas_mushrooms/view/screens/show_harvest_details/mushroom_harvest_details.dart';
+import 'package:leenas_mushrooms/view/screens/show_harvest_details/mushroom_harvest/mushroom_harvest_details.dart';
 
 class UserDrawer extends StatefulWidget {
   const UserDrawer({super.key});
@@ -206,7 +206,7 @@ void showLogoutDialog(context) {
               Navigator.pushAndRemoveUntil(
                 context,
                 CupertinoPageRoute(builder: (context) => const LoginPage()),
-                (Route<dynamic> route) => false, 
+                (Route<dynamic> route) => false,
               );
             },
             style: ElevatedButton.styleFrom(
