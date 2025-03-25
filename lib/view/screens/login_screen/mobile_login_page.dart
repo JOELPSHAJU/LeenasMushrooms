@@ -20,8 +20,8 @@ class MobileLoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userNameController = TextEditingController();
-    final passWordController = TextEditingController();
+    final userNameController = TextEditingController(text: 'admin');
+    final passWordController = TextEditingController(text: 'admin');
     final Size size = MediaQuery.of(context).size;
     final loginFormKey = GlobalKey<FormState>();
 
