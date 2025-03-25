@@ -36,8 +36,6 @@ class DataVerseRepository {
 
   Future<GetCallDetailsResponse> getCallDetailsApi({required int page}) async {
     return _client.getCallDetails(page, 10);
-  Future<GetCallDetailsResponse> getCallDetailsApi({required int page}) async {
-    return _client.getCallDetails(page, 10);
   }
 
   Future<AddSeedDetailsModel> addSeedDetailsApi(
@@ -58,11 +56,8 @@ class DataVerseRepository {
   Future<GetIncomeDetailsResponse> getIncomeDetailsApi(
       {required int page}) async {
     return _client.getIncomeDetails(page, 10);
-
-  Future<GetIncomeDetailsResponse> getIncomeDetailsApi(
-      {required int page}) async {
-    return _client.getIncomeDetails(page, 10);
-  }
+      }
+  
 
   Future<GetExpenseDetailsResponse> getExpenseDetailsApi(
       {required int page}) async {
