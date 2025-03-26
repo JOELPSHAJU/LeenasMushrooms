@@ -8,3 +8,9 @@ final class SeedDetailsButtonPressEvent extends SeedDetailsEvent {
 
   SeedDetailsButtonPressEvent({required this.details});
 }
+final class GetSeedDetailsEvent extends SeedDetailsEvent{
+  final int page;
+
+  GetSeedDetailsEvent({required this.page});
+
+}

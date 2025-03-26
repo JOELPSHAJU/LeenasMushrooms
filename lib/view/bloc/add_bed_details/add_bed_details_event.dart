@@ -8,3 +8,9 @@ final class AddBedDetailsButtonPressEvent extends AddBedDetailsEvent {
 
   AddBedDetailsButtonPressEvent({required this.details});
 }
+
+final class GetBedDetailsEvent extends AddBedDetailsEvent {
+  final int page;
+
+  GetBedDetailsEvent({required this.page});
+}

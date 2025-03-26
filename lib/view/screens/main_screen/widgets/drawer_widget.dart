@@ -12,7 +12,9 @@ import 'package:leenas_mushrooms/view/screens/expense_detail_page/expense_detail
 import 'package:leenas_mushrooms/view/screens/income_detail_page/income_detail_page.dart';
 import 'package:leenas_mushrooms/view/screens/login_screen/login_screen_wrapper.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/home_screens/order_details_screen/order_details_screen.dart';
+import 'package:leenas_mushrooms/view/screens/show_harvest_details/bed_harvest/bed_harvest_details.dart';
 import 'package:leenas_mushrooms/view/screens/show_harvest_details/mushroom_harvest/mushroom_harvest_details.dart';
+import 'package:leenas_mushrooms/view/screens/show_harvest_details/seed_harvest/seed_harvest_details.dart';
 
 class UserDrawer extends StatefulWidget {
   const UserDrawer({super.key});
@@ -121,7 +123,7 @@ class _UserDrawerState extends State<UserDrawer> {
           ListTile(
             contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
             title: const Text(
-              'MushroomHarvestDetails',
+              'Mushroom Harvest Details',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             onTap: () {
@@ -129,6 +131,40 @@ class _UserDrawerState extends State<UserDrawer> {
                 context,
                 CupertinoPageRoute(
                     builder: (context) => const MushroomHarvestDetails()),
+              );
+            },
+          ),
+          Divider(
+            color: AppColors.grey300,
+          ),
+          ListTile(
+            contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+            title: const Text(
+              'Bed Harvest Details',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                    builder: (context) => const BedHarvestDetails()),
+              );
+            },
+          ),
+          Divider(
+            color: AppColors.grey300,
+          ),
+          ListTile(
+            contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+            title: const Text(
+              'Seed Harvest Details',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                    builder: (context) => const SeedHarvestDetails()),
               );
             },
           ),

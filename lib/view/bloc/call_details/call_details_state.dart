@@ -29,17 +29,17 @@ final class CallDetailsFailure extends CallDetailsState {
 
 class CallDetailsFetchSuccess extends CallDetailsState {
   final List<CallDetailsModel> callDetails;
-  final List<CallDetailsModel> allCallDetails;
+
   final bool hasReachedMax;
   final int currentPage;
 
   CallDetailsFetchSuccess({
     required this.callDetails,
-    required this.allCallDetails,
+
     this.hasReachedMax = false,
     this.currentPage = 1,
   });
   @override
   List<Object> get props =>
-      [callDetails, allCallDetails, hasReachedMax, currentPage];
+      [callDetails, hasReachedMax, currentPage];
 }

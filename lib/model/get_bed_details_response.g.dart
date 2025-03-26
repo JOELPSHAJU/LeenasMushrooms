@@ -1,14 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'get_mushroom_details_response.dart';
+part of 'get_bed_details_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-GetMushroomDetailsResponse _$GetMushroomDetailsResponseFromJson(
+GetBedDetailsResponse _$GetBedDetailsResponseFromJson(
         Map<String, dynamic> json) =>
-    GetMushroomDetailsResponse(
+    GetBedDetailsResponse(
       status: json['status'] as String?,
       pagination: json['pagination'] == null
           ? null
@@ -18,8 +18,8 @@ GetMushroomDetailsResponse _$GetMushroomDetailsResponseFromJson(
           .toList(),
     );
 
-Map<String, dynamic> _$GetMushroomDetailsResponseToJson(
-        GetMushroomDetailsResponse instance) =>
+Map<String, dynamic> _$GetBedDetailsResponseToJson(
+        GetBedDetailsResponse instance) =>
     <String, dynamic>{
       'status': instance.status,
       'pagination': instance.pagination,
@@ -32,7 +32,7 @@ Datum _$DatumFromJson(Map<String, dynamic> json) => Datum(
           json['date'] == null ? null : DateTime.parse(json['date'] as String),
       harvestTime: json['harvest_time'] as String?,
       quantity: (json['quantity'] as num?)?.toInt(),
-      damage: (json['damage'] as num?)?.toInt(),
+      noOfPackets: (json['no_of_packets'] as num?)?.toInt(),
       remarks: json['remarks'] as String?,
       createdAt: json['createdAt'] == null
           ? null
@@ -48,7 +48,7 @@ Map<String, dynamic> _$DatumToJson(Datum instance) => <String, dynamic>{
       'date': instance.date?.toIso8601String(),
       'harvest_time': instance.harvestTime,
       'quantity': instance.quantity,
-      'damage': instance.damage,
+      'no_of_packets': instance.noOfPackets,
       'remarks': instance.remarks,
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),

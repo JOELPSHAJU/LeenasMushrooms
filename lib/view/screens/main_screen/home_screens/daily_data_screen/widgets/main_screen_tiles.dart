@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/constants/font_style.dart';
@@ -23,13 +22,25 @@ class MainScreenListTile extends StatelessWidget {
           width: size.width,
           height: 150.h,
           decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.grey.shade500,
+                    blurRadius: 15.0,
+                    offset: const Offset(4, 4),
+                    spreadRadius: 1.0),
+                const BoxShadow(
+                    color: Colors.white,
+                    blurRadius: 15.0,
+                    offset: Offset(-4, -4),
+                    spreadRadius: 1.0),
+              ],
               image: DecorationImage(
                   image: AssetImage(
                     image,
                   ),
                   fit: BoxFit.cover,
                   opacity: .5),
-              color: AppColors.black,
+              color: Colors.black,
               borderRadius: BorderRadius.circular(10)),
           child: Center(
               child: Text(

@@ -27,8 +27,9 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       toolbarHeight: toolbarHeight,
       iconTheme: IconThemeData(color: iconThemeColor),
       centerTitle: true,
-      elevation: 5,
-      shadowColor: const Color.fromARGB(255, 249, 249, 249),
+      elevation: 8,
+
+      shadowColor: const Color.fromARGB(65, 255, 255, 255),
       title: loadAssetPic(ImagePathProvider.logoletters,
           height: 40), // Default to an empty widget if no title is provided
       backgroundColor: backgroundColor,

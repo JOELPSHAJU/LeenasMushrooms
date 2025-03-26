@@ -7,7 +7,6 @@ import 'package:leenas_mushrooms/core/common_widgets/common_appbar.dart';
 import 'package:leenas_mushrooms/core/common_widgets/common_dropdown.dart';
 import 'package:leenas_mushrooms/core/common_widgets/common_input_fields.dart';
 import 'package:leenas_mushrooms/core/common_widgets/custom_button.dart';
-import 'package:leenas_mushrooms/core/common_widgets/custom_validators.dart';
 import 'package:leenas_mushrooms/core/common_widgets/date_picker.dart';
 import 'package:leenas_mushrooms/core/common_widgets/main_button.dart';
 import 'package:leenas_mushrooms/core/common_widgets/screen_route_title.dart';
@@ -16,7 +15,7 @@ import 'package:leenas_mushrooms/core/common_widgets/textfield_with_quantity.dar
 import 'package:leenas_mushrooms/core/constants/color.dart';
 import 'package:leenas_mushrooms/core/utils/responsive_utils.dart';
 import 'package:leenas_mushrooms/services/dataverse_repository.dart';
-import 'package:leenas_mushrooms/view/bloc/bloc/add_mushroom_details_bloc.dart';
+import 'package:leenas_mushrooms/view/bloc/mushroom_details/add_mushroom_details_bloc.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/main_screen.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/widgets/inputfield_data_model.dart';
 
@@ -84,7 +83,7 @@ class _AddMushroomDetailsScreenState extends State<AddMushroomDetailsScreen> {
 
   void _submitDetails(BuildContext context) {
     if (_formKey.currentState!.validate()) {
-      final details = AddMushroomDetailsPostModel(
+      final details = MushroomDetailsPostModel(
         date: dateController,
         harvestTime: timeController,
         quantity: quantityController.text,
@@ -93,8 +92,8 @@ class _AddMushroomDetailsScreenState extends State<AddMushroomDetailsScreen> {
       );
 
       context
-          .read<AddMushroomDetailsBloc>()
-          .add(AddMushroomDetailsButtonPressEvent(details: details));
+          .read<MushroomDetailsBloc>()
+          .add(MushroomDetailsButtonPressEvent(details: details));
     }
   }
 
@@ -147,15 +146,15 @@ class _AddMushroomDetailsScreenState extends State<AddMushroomDetailsScreen> {
     final Size size = MediaQuery.of(context).size;
 
     return BlocProvider(
-      create: (context) => AddMushroomDetailsBloc(
+      create: (context) => MushroomDetailsBloc(
         repo: context.read<DataVerseRepository>(),
       ),
       child: Scaffold(
         appBar: const CommonAppBar(iconNeeded: false),
         backgroundColor: AppColors.cardcolor,
-        body: BlocConsumer<AddMushroomDetailsBloc, AddMushroomDetailsState>(
+        body: BlocConsumer<MushroomDetailsBloc, MushroomDetailsState>(
           listener: (context, state) {
-            if (state is AddMushroomDetailsSuccess) {
+            if (state is MushroomDetailsSuccess) {
               successSnakbar(context, "Mushroom details added successfully");
               quantityController.clear();
               damageController.clear();
@@ -169,7 +168,7 @@ class _AddMushroomDetailsScreenState extends State<AddMushroomDetailsScreen> {
                 context,
                 CupertinoPageRoute(builder: (context) => MainScreen()),
               );
-            } else if (state is AddMushroomDetailsFailure) {
+            } else if (state is MushroomDetailsFailure) {
               failedSnakbar(context, "Failed to add details: ${state.message}");
             }
           },
@@ -230,11 +229,10 @@ class _AddMushroomDetailsScreenState extends State<AddMushroomDetailsScreen> {
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 20),
-                                    child: BlocBuilder<AddMushroomDetailsBloc,
-                                        AddMushroomDetailsState>(
+                                    child: BlocBuilder<MushroomDetailsBloc,
+                                        MushroomDetailsState>(
                                       builder: (context, state) {
-                                        if (state
-                                            is AddMushroomDetailsLoading) {
+                                        if (state is MushroomDetailsLoading) {
                                           return loadingButton(
                                             media: size,
                                             onPressed: () {},

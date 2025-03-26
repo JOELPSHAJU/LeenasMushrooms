@@ -4,11 +4,13 @@ import 'package:leenas_mushrooms/model/add_bed_details_model.dart';
 import 'package:leenas_mushrooms/model/add_mushroom_details_model.dart';
 import 'package:leenas_mushrooms/model/call_details_add_model_response.dart';
 import 'package:leenas_mushrooms/model/expense_addition_response.dart';
+import 'package:leenas_mushrooms/model/get_bed_details_response.dart';
 import 'package:leenas_mushrooms/model/get_call_details_response.dart';
 import 'package:leenas_mushrooms/model/get_expense_details_response.dart';
 import 'package:leenas_mushrooms/model/get_income_details_response.dart';
 import 'package:leenas_mushrooms/model/get_mushroom_details_response.dart';
 import 'package:leenas_mushrooms/model/get_order_details_response.dart';
+import 'package:leenas_mushrooms/model/get_seed_details_response.dart';
 import 'package:leenas_mushrooms/model/income_addition_response.dart';
 import 'package:leenas_mushrooms/model/login_response.dart';
 import 'package:leenas_mushrooms/model/order_details_sucess_response.dart';
@@ -66,12 +68,22 @@ abstract class RestClient {
     @Query("page") int page,
     @Query("limit") int limit,
   );
-   @GET('/mushroomdetails/getMushroomdetails')
+  @GET('/mushroomdetails/getMushroomdetails')
   Future<GetMushroomDetailsResponse> getMushroomDetails(
     @Query("page") int page,
     @Query("limit") int limit,
   );
 
+  @GET('/seeddetails/getSeeddetails')
+  Future<GetSeedDetailsResponse> getSeedDetails(
+    @Query("page") int page,
+    @Query("limit") int limit,
+  );
+  @GET('/beddetails/getBeddetails')
+  Future<GetBedDetailsResponse> getBeddDetails(
+    @Query("page") int page,
+    @Query("limit") int limit,
+  );
 
   @POST('/beddetails/addBeddetails')
   Future<AddBedDetailsModel> addBedeDetails(@Body() Map<String, dynamic> body);
@@ -79,5 +91,4 @@ abstract class RestClient {
   @POST('/mushroomdetails/addMushroomdetails')
   Future<AddMushroomDetailsModel> addMushroomeDetails(
       @Body() Map<String, dynamic> body);
-
 }

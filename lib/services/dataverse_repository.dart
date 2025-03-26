@@ -2,11 +2,13 @@ import 'package:leenas_mushrooms/model/add_bed_details_model.dart';
 import 'package:leenas_mushrooms/model/add_mushroom_details_model.dart';
 import 'package:leenas_mushrooms/model/call_details_add_model_response.dart';
 import 'package:leenas_mushrooms/model/expense_addition_response.dart';
+import 'package:leenas_mushrooms/model/get_bed_details_response.dart';
 import 'package:leenas_mushrooms/model/get_call_details_response.dart';
 import 'package:leenas_mushrooms/model/get_expense_details_response.dart';
 import 'package:leenas_mushrooms/model/get_income_details_response.dart';
 import 'package:leenas_mushrooms/model/get_mushroom_details_response.dart';
 import 'package:leenas_mushrooms/model/get_order_details_response.dart';
+import 'package:leenas_mushrooms/model/get_seed_details_response.dart';
 import 'package:leenas_mushrooms/model/income_addition_response.dart';
 import 'package:leenas_mushrooms/model/login_response.dart';
 import 'package:leenas_mushrooms/model/order_details_sucess_response.dart';
@@ -56,8 +58,7 @@ class DataVerseRepository {
   Future<GetIncomeDetailsResponse> getIncomeDetailsApi(
       {required int page}) async {
     return _client.getIncomeDetails(page, 10);
-      }
-  
+  }
 
   Future<GetExpenseDetailsResponse> getExpenseDetailsApi(
       {required int page}) async {
@@ -72,7 +73,15 @@ class DataVerseRepository {
   Future<GetMushroomDetailsResponse> getMushroomDetailsApi(
       {required int page}) async {
     return _client.getMushroomDetails(page, 10);
-      }
+  }
+
+  Future<GetSeedDetailsResponse> getSeedDetailsApi({required int page}) async {
+    return _client.getSeedDetails(page, 10);
+  }
+    Future<GetBedDetailsResponse> getBedDetailsApi({required int page}) async {
+    return _client.getBeddDetails(page, 10);
+  }
+
   Future<AddBedDetailsModel> addBedDetailsApi(
       {required Map<String, dynamic> credentials}) async {
     return await _client.addBedeDetails(credentials);

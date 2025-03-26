@@ -1,15 +1,18 @@
-class MushroomDetailsPostModel {
+class BedDetailsDisplayModel {
+  final String id;
   final String date;
   final String harvestTime;
-  final String quantity;
-  final String damage;
+  final int quantity;
+  final int noOfPackets;
   final String remarks;
+  
 
-  MushroomDetailsPostModel({
+  BedDetailsDisplayModel({
+    required this.id,
     required this.date,
     required this.harvestTime,
     required this.quantity,
-    required this.damage,
+    required this.noOfPackets,
     required this.remarks,
   });
 }

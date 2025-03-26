@@ -10,7 +10,9 @@ import 'package:leenas_mushrooms/view/bloc/add_bed_details/add_bed_details_bloc.
 import 'package:leenas_mushrooms/view/bloc/call_details/call_details_bloc.dart';
 import 'package:leenas_mushrooms/view/bloc/income_expense/income_expense_bloc.dart';
 import 'package:leenas_mushrooms/view/bloc/login_bloc/login_bloc.dart';
+import 'package:leenas_mushrooms/view/bloc/mushroom_details/add_mushroom_details_bloc.dart';
 import 'package:leenas_mushrooms/view/bloc/order_details/order_details_bloc.dart';
+import 'package:leenas_mushrooms/view/bloc/seed_details/seed_details_bloc.dart';
 import 'package:leenas_mushrooms/view/screens/login_screen/login_screen_wrapper.dart';
 import 'package:leenas_mushrooms/view/screens/main_screen/main_screen.dart';
 import 'package:leenas_mushrooms/view/screens/splash_screen/splash_screen.dart';
@@ -80,6 +82,16 @@ class MyApp extends StatelessWidget {
             ),
             BlocProvider(
               create: (context) => AddBedDetailsBloc(
+                repo: context.read<DataVerseRepository>(),
+              ),
+            ),
+            BlocProvider(
+              create: (context) => MushroomDetailsBloc(
+                repo: context.read<DataVerseRepository>(),
+              ),
+            ),
+             BlocProvider(
+              create: (context) => SeedDetailsBloc(
                 repo: context.read<DataVerseRepository>(),
               ),
             ),

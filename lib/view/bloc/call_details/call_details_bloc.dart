@@ -12,6 +12,7 @@ part 'call_details_state.dart';
 class CallDetailsBloc extends Bloc<CallDetailsEvent, CallDetailsState> {
   final DataVerseRepository repo;
   final int limit = 10;
+  List<CallDetailsModel> allCallDetails = []; // Persistent list in bloc
 
   CallDetailsBloc({required this.repo}) : super(CallDetailsInitial()) {
     on<CallDetailsButtonPressEvent>(_onAddCallDetailsButtonPressEvent);
@@ -44,12 +45,14 @@ class CallDetailsBloc extends Bloc<CallDetailsEvent, CallDetailsState> {
     // If it's the first page or refresh, show loading state
     if (event.page == 1) {
       emit(CallDetailsLoading());
+      allCallDetails.clear(); // Clear only on first page or refresh
     } else if (state is CallDetailsFetchSuccess) {
-      // For pagination, emit loading more state
+      // For pagination, emit loading more state with current data
       final currentState = state as CallDetailsFetchSuccess;
       emit(CallDetailsLoadingMore(
-          callDetails: currentState.callDetails,
-          currentPage: currentState.currentPage));
+        callDetails: currentState.callDetails,
+        currentPage: currentState.currentPage,
+      ));
     }
 
     try {
@@ -69,25 +72,23 @@ class CallDetailsBloc extends Bloc<CallDetailsEvent, CallDetailsState> {
           );
         }).toList();
 
-        // Check if we've reached the max (fewer items than limit returned)
+        // Check if we've reached the max
         bool hasReachedMax = newCallDetails.length < limit;
 
         if (event.page == 1) {
           // First page - replace all data
+          allCallDetails = List.from(newCallDetails);
           emit(CallDetailsFetchSuccess(
-            allCallDetails:newCallDetails,
-            callDetails: newCallDetails,
+            callDetails: allCallDetails,
             hasReachedMax: hasReachedMax,
             currentPage: event.page,
           ));
-        } else if (state is CallDetailsLoadingMore) {
-          // Pagination - append new data
-          final currentState = state as CallDetailsLoadingMore;
+        } else {
+          // Pagination - append new data only
+          allCallDetails.addAll(newCallDetails);
           emit(CallDetailsFetchSuccess(
-            allCallDetails: currentState.callDetails + newCallDetails,
-            callDetails: List.from(currentState.callDetails)
-              ..addAll(newCallDetails),
-            hasReachedMax: hasReachedMax, 
+            callDetails: allCallDetails,
+            hasReachedMax: hasReachedMax,
             currentPage: event.page,
           ));
         }
